@@ -2,13 +2,13 @@ package entity;
 
 public class TestResult {
 
-    private int resultId = 0;
+    private int resultId;
     private int testId;
     private int studentId;
     private double result;
 
-    public TestResult(int testId, int studentId, double result) {
-        this.resultId = ++resultId;
+    public TestResult(int resultId, int testId, int studentId, double result) {
+        this.resultId = resultId;
         this.testId = testId;
         this.studentId = studentId;
         this.result = result;

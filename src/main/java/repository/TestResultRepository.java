@@ -1,5 +1,6 @@
 package repository;
 
+import dto.TestResultRequest;
 import entity.TestResult;
 
 import java.util.ArrayList;
@@ -8,13 +9,17 @@ import java.util.Optional;
 
 public class TestResultRepository {
     private List<TestResult> testResults;
+    private Integer idCounter;
 
     public TestResultRepository() {
         this.testResults = new ArrayList<>();
+        this.idCounter = 0;
     }
 
-    public boolean addResult (TestResult result){
-        return testResults.add(result);
+    public Integer addResult (TestResultRequest result){
+        idCounter++;
+        testResults.add(new TestResult(idCounter, result.getTestId(), result.getStudentId(), result.getResult()));
+        return idCounter;
     }
 
     public List<TestResult> findAll (){
