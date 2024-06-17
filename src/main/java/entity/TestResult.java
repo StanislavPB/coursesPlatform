@@ -4,13 +4,13 @@ public class TestResult {
 
     private int resultId = 0;
     private int testId;
-    private Student student;
+    private int studentId;
     private double result;
 
-    public TestResult(int testId, Student student, double result) {
+    public TestResult(int testId, int studentId, double result) {
         this.resultId = ++resultId;
         this.testId = testId;
-        this.student = student;
+        this.studentId = studentId;
         this.result = result;
     }
 
@@ -22,8 +22,8 @@ public class TestResult {
         return testId;
     }
 
-    public Student getStudent() {
-        return student;
+    public int getStudentId() {
+        return studentId;
     }
 
     public double getResult() {
@@ -35,7 +35,7 @@ public class TestResult {
         return "TestResult{" +
                 "resultId=" + resultId +
                 ", testId=" + testId +
-                ", student=" + student +
+                ", studentId=" + studentId +
                 ", result=" + result +
                 '}';
     }
