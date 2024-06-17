@@ -51,15 +51,44 @@ TestResultRepository
 ==================METHODS for repo
 
 CourseRepository
+    CREATE:
+        - создается экземпляр класса
+        - генерируется уникальный ID
+        - получаем на вход courseTitle;
+        - получаем на вход courseDescription;
+        - создается пустая коллекция courseContent
+        - создается пустая коллекция students
+
+    find all (aka PrintAll) => список всех курсов (вся коллекция)
+    find by ID => объект курс
+    find by courseTitle => объект курс
+    updateCourseContent => заменить лист courseContent на обновленный лист, получив его на входе
+    updateStudents => заменить лист students на обновленный лист, получив его на входе
+    deleteCourse => boolean 
 
 StudentRepository
+    CREATE:
+    - создается экземпляр класса
+    - генерируется уникальный ID
+    - получаем на вход name;
+    - получаем на вход email;
+
+    find all (aka PrintAll) => список всех курсов (вся коллекция)
+    find by ID => объект курс
+    find by courseTitle => объект курс
+    updateName => DTO result
+    updateEmail => DTO result
+    deleteStudent => boolean
+
 
 TestRepository
+CRUD
 
 QuestionRepository
+CRUD
 
 TestResultRepository
-
+CRUD
 
 
 
