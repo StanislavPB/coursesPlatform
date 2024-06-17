@@ -1,11 +1,12 @@
 
 
-===ENTITY
+==================ENTITY
 Course
     int id;
     String courseTitle;
     String courseDescription;
     List<String> courseContent;
+    List<Student> students;
 
 Student
     int id;
@@ -19,15 +20,36 @@ Test
     List<Question> questions;
 
 Question
-    String questionText
-    Map<String(answer), boolean (isCorrect)>
+    int id;
+    String questionText;
+    Map<Integer (answerId), String (answerText)> questions;
+    int correctAnswer;
+    
 
 TestResult
-    Test test;
+    int testId;
     Student student;
     double result;
 
-===REPOSITORY
+==================REPOSITORY
+CourseRepository
+    List<Corse> courses;
+
+StudentRepository
+    List<Student> students;
+
+TestRepository
+    List<Test> tests;
+
+QuestionRepository
+    List<Question> questions;
+
+TestResultRepository
+    List<TestResult> results;
+
+
+==================METHODS for repo
+
 CourseRepository
 
 StudentRepository
@@ -38,12 +60,7 @@ QuestionRepository
 
 TestResultRepository
 
-CourseStudents (repo)
-    int id;
-    Course course;
-    List<Student> students;
-    start date
-    end date
+
 
 
 
