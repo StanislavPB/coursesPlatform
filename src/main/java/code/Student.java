@@ -1,5 +1,8 @@
 package code;
-
+//Student
+//int studentId;
+//String name;
+//String email;
 public class Student {
     private int studentId;
     private String name;
