@@ -1,32 +1,32 @@
 
 ==================ENTITY
-Course
+Course (Любовь)
     int courseId;
     String courseTitle;
     String courseDescription;
     List<String> courseContent;
     List<Student> students;
 
-Student
+Student (Валера)
     int studentId;
     String name;
     String email;
 
-Test
+Test(Алена)
     int testId;
     String testTitle;
     Course course;
     List<Question> questions;
 
-Question
+Question(Денис)
     int questionId;
     String questionText;
     Map<Integer (answerId), String (answerText)> questions;
     int correctAnswer;
     
 
-TestResult
-    int resutltId;
+TestResult(Алекс)
+    int resultId;
     int testId;
     Student student;
     double result;
