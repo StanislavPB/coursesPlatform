@@ -88,11 +88,19 @@ CREATE:
     update correctAnswer => DTO result
     deleteQuestion => boolean
 
-
-
-
 TestResultRepository
-    int testId;
+    int testResultId;
+    int testId
     Student student;
     double result;
 
+CREATE:
+- создается экземпляр класса
+- генерируется уникальный ID
+- получаем на вход Student student;
+- получаем на вход result;
+
+    find all (aka PrintAll) => список всех результатов (вся коллекция)
+    find by resultID => объект результат
+    find by testID => лист результатов определенного теста
+    find by studentID => лист результатов определенного студента

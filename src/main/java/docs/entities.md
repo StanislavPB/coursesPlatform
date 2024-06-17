@@ -1,31 +1,32 @@
 
 ==================ENTITY
 Course
-    int id;
+    int courseId;
     String courseTitle;
     String courseDescription;
     List<String> courseContent;
     List<Student> students;
 
 Student
-    int id;
+    int studentId;
     String name;
     String email;
 
 Test
-    int id;
+    int testId;
     String testTitle;
     Course course;
     List<Question> questions;
 
 Question
-    int id;
+    int questionId;
     String questionText;
     Map<Integer (answerId), String (answerText)> questions;
     int correctAnswer;
     
 
 TestResult
+    int resutltId;
     int testId;
     Student student;
     double result;
