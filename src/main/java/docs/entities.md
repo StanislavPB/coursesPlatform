@@ -28,5 +28,5 @@ Question(Денис)
 TestResult(Алекс)
     int resultId;
     int testId;
-    Student student;
+    int studentId
     double result;
