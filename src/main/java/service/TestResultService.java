@@ -10,6 +10,7 @@ import service.util.Validation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalDouble;
 
 public class TestResultService {
     private TestResultRepository testResultRepository;
@@ -96,18 +97,67 @@ public class TestResultService {
 
     /*
     статистика по тестам (service)
-        по конкретному тесту: всего раз пройден, средний результат
-            вход: testID
-            выход: statisticResponse: testId, testTitle, attempts, averageResult
         по всем тестам: всего раз пройдено, средний результат
             вход: -
-            выход: statisticResponse: attempts, averageResult
+            выход: statisticResponse: allResultsAmount, averageResult
+
         по конкретному студенту: всего тестов прошел, средний результат
      */
 
-    //статистика по конкретному тесту:
+    //статистика по всем тестам:
     public void printAllTestResultStatistic (){
 
+        int allResultsAmount = testResultRepository.findAll().size();
+        double averageResult;
+
+        OptionalDouble average = testResultRepository.findAll().stream()
+                .mapToDouble(TestResult :: getResultId)
+                .average();
+        if(average.isPresent()){
+            averageResult = average.getAsDouble();
+        } else {
+            averageResult = 0.0;
+        }
+
+        System.out.printf("Total amount of tests is " + allResultsAmount + ", average result is %.1f%n", + averageResult);
+    }
+
+    public void printTestResultStatisticByTestId (int testId){
+
+        List<TestResult> findedTestesults = testResultRepository.findByTestId(testId);
+        int attempts = findedTestesults.size();
+        double averageResult;
+        String testTitle = testRepository.findById(testId).get().getTestTitle();
+
+        OptionalDouble average = findedTestesults.stream()
+                .mapToDouble(TestResult :: getResultId)
+                .average();
+        if(average.isPresent()){
+            averageResult = average.getAsDouble();
+        } else {
+            averageResult = 0.0;
+        }
+
+        System.out.printf("Total amount of test \"" + testTitle + "\" is " + attempts + " , average result is %.1f%n ", + averageResult);
+    }
+
+    public void printTestResultStatisticByStudentId (int studentId){
+
+        List<TestResult> findedTestesults = testResultRepository.findByStudentId(studentId);
+        int attempts = findedTestesults.size();
+        double averageResult;
+        String studentName = studentRepository.findById(studentId).get().getName();
+
+        OptionalDouble average = findedTestesults.stream()
+                .mapToDouble(TestResult :: getResultId)
+                .average();
+        if(average.isPresent()){
+            averageResult = average.getAsDouble();
+        } else {
+            averageResult = 0.0;
+        }
+
+        System.out.printf("Student " + studentName + " has passed through " + attempts + "tests , average result is %.1f%n ", + averageResult);
     }
 
 
