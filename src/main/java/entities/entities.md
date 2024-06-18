@@ -12,7 +12,7 @@ int studentId;
 String name;
 String email;
 
-Test(Алена)
+entities.Test(Алена)
 int testId;
 String testTitle;
 Course course;

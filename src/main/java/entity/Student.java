@@ -1,4 +1,4 @@
-package code;
+package entity;
 //Student
 //int studentId;
 //String name;

@@ -6,8 +6,8 @@ CourseRepository
 StudentRepository
     List<Student> students;
 
-TestRepository
-    List<Test> tests;
+repository.TestRepository
+    List<entities.Test> tests;
 
 QuestionRepository
     List<Question> questions;
@@ -50,7 +50,7 @@ StudentRepository
     deleteStudent => boolean
 
 
-TestRepository
+repository.TestRepository
 
 CREATE:
 - создается экземпляр класса

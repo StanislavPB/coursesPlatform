@@ -1,4 +1,6 @@
-package code;
+package repository;
+
+import entity.Student;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,6 @@
-package code;
+package repository;
+
+import entity.Student;
 
 import java.util.List;
 import java.util.Optional;

@@ -44,7 +44,7 @@ public class TestResultService {
 
             return new TestResultSearchByIdResponse(testResultClientResponse, errors);
         }else {
-            errors.add("Test result with ID: " + testResultId + " not found");
+            errors.add("entities.Test result with ID: " + testResultId + " not found");
             TestResultClientResponse testResultClientResponse = new TestResultClientResponse("", "", 0);
 
             return new TestResultSearchByIdResponse(testResultClientResponse, errors);
