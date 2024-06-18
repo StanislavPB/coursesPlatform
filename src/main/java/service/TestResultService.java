@@ -1,9 +1,6 @@
 package service;
 
-import dto.TestResultClientResponse;
-import dto.TestResultResponce;
-import dto.TestResultRequest;
-import dto.TestResultSearchByIdResponse;
+import dto.*;
 import entity.TestResult;
 import repository.StudentStudentRepository;
 import repository.TestRepository;
@@ -37,26 +34,65 @@ public class TestResultService {
         return new TestResultResponce(newId, errors);
     }
 
-    public TestResultSearchByIdResponse findTestResultById (int testResultId){
+    public TestResultSearchItemResponse findTestResultByResultId (int testResultId){
         Optional<TestResult> testResultOptional = testResultRepository.findByResultId(testResultId);
         List<String> errors = new ArrayList<>();
 
         if (testResultOptional.isPresent()){
             TestResult testResultById = testResultOptional.get();
 
-            String testTitle = testRepository.findById(testResultById.getTestId()).get().getTestTitle();
-            String studentName = studentRepository.findById(testResultById.getStudentId()).get().getName();
+            TestResultClientResponse testResultClientResponse = createTestResultClientResponceDTO(testResultById);
 
-            TestResultClientResponse testResultClientResponse = new TestResultClientResponse(testTitle, studentName, testResultById.getResult());
-
-            return new TestResultSearchByIdResponse(testResultClientResponse, errors);
+            return new TestResultSearchItemResponse(testResultClientResponse, errors);
         }else {
             errors.add("Entity Test Result with ID: " + testResultId + " not found");
             TestResultClientResponse testResultClientResponse = new TestResultClientResponse("", "", 0);
 
-            return new TestResultSearchByIdResponse(testResultClientResponse, errors);
+            return new TestResultSearchItemResponse(testResultClientResponse, errors);
         }
 
     }
+
+    public TestResultSearchListResponse findTestResultByTestId (int testId){
+        List<TestResult> testResultByTestId = testResultRepository.findByTestId(testId);
+        List<String> errors = new ArrayList<>();
+
+        List<TestResultClientResponse> findTestResultsByTestId = new ArrayList<>();
+
+        if (!testResultByTestId.isEmpty()){
+            for (TestResult result : testResultByTestId){
+                findTestResultsByTestId.add(createTestResultClientResponceDTO(result));
+            }
+            return new TestResultSearchListResponse(findTestResultsByTestId, errors);
+        }else {
+            errors.add("Test results of test with ID: " + testId + " not found");
+            return new TestResultSearchListResponse(findTestResultsByTestId, errors);
+        }
+    }
+
+    public TestResultSearchListResponse findTestResultByStudentId (int studentId){
+        List<TestResult> testResultByStudentId = testResultRepository.findByStudentId(studentId);
+        List<String> errors = new ArrayList<>();
+
+        List<TestResultClientResponse> findTestResultsByStudentId = new ArrayList<>();
+
+        if (!testResultByStudentId.isEmpty()){
+            for (TestResult result : testResultByStudentId){
+                findTestResultsByStudentId.add(createTestResultClientResponceDTO(result));
+            }
+            return new TestResultSearchListResponse(findTestResultsByStudentId, errors);
+        }else {
+            errors.add("Test results of test with ID: " + studentId + " not found");
+            return new TestResultSearchListResponse(findTestResultsByStudentId, errors);
+        }
+    }
+
+    public TestResultClientResponse createTestResultClientResponceDTO (TestResult testResult){
+        String testTitle = testRepository.findById(testResult.getTestId()).get().getTestTitle();
+        String studentName = studentRepository.findById(testResult.getStudentId()).get().getName();
+        double result = testResult.getResult();
+        return new TestResultClientResponse(testTitle, studentName, result);
+    }
+
 
 }

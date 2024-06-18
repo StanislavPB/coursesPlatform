@@ -20,8 +20,8 @@ Question(Денис)
 TestResult(Алекс)
     создание списка результатов (repo)
     создание нового результата(service)
-        вход: ResponseTestResult
-        выход: 
+        вход: TestResultRequest
+        выход: TestResultClientResponse
 
     статистика по тестам (service)
         по конкретному тесту: всего раз пройден, средний результат
