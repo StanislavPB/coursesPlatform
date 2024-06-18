@@ -1,5 +1,8 @@
 package service;
 
+import dto.StudentRequest;
+import dto.StudentResponse;
+import entity.Student;
 import repository.interfaces.InStudentRepository;
 import service.util.UserInput;
 import service.util.Validation;
