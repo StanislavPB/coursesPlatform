@@ -90,14 +90,15 @@ CREATE:
 
 TestResultRepository
     int testResultId;
-    int testId
+    int testId;
     Student student;
     double result;
 
 CREATE:
 - создается экземпляр класса
 - генерируется уникальный ID
-- получаем на вход Student student;
+- получаем на вход testId;
+- получаем на вход studentId;
 - получаем на вход result;
 
     find all (aka PrintAll) => список всех результатов (вся коллекция)
