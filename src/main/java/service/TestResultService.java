@@ -5,6 +5,8 @@ import dto.TestResultResponce;
 import dto.TestResultRequest;
 import dto.TestResultSearchByIdResponse;
 import entity.TestResult;
+import repository.StudentRepository;
+import repository.TestRepository;
 import repository.TestResultRepository;
 import service.util.Validation;
 
@@ -14,10 +16,14 @@ import java.util.Optional;
 
 public class TestResultService {
     private TestResultRepository testResultRepository;
+    private TestRepository testRepository;
+    private StudentRepository studentRepository;
     private Validation validation;
 
-    public TestResultService(TestResultRepository testResultRepository, Validation validation) {
+    public TestResultService(TestResultRepository testResultRepository, TestRepository testRepository, StudentRepository studentRepository, Validation validation) {
         this.testResultRepository = testResultRepository;
+        this.testRepository = testRepository;
+        this.studentRepository = studentRepository;
         this.validation = validation;
     }
 
@@ -37,7 +43,8 @@ public class TestResultService {
 
         if (testResultOptional.isPresent()){
             TestResult testResultById = testResultOptional.get();
-            String testTitle = testRepository.findById(testResultById.getTestId()).getTestTitle;
+            //Alex will fix it in his branch
+            String testTitle = testRepository.findById(testResultById.getTestId()).get;
             String studentName = studentRepository.findById(testResultById.getStudentId()).getName;
 
             TestResultClientResponse testResultClientResponse = new TestResultClientResponse(testTitle, studentName, testResultById.getResult());

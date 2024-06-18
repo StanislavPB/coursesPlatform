@@ -1,5 +1,7 @@
 package repository;
 
+import entity.Course;
+import entity.Question;
 import entity.Test;
 
 import java.util.ArrayList;

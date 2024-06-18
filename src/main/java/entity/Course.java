@@ -1,7 +1,8 @@
-// Course.java
 package entity;
 
-import java.util.ArrayList;
+ import entity.Student;
+
+ import java.util.ArrayList;
 import java.util.List;
 
 public class Course {

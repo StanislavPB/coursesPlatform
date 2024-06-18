@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.List;
+
 public class Test {
     private int testId;
     private String testTitle;
