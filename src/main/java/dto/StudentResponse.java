@@ -1,27 +1,27 @@
 package dto;
 
 public class StudentResponse {
-    private String name;
-    private String email;
+    private String responseName;
+    private String responseEmail;
 
-    public StudentResponse(String name, String email) {
-        this.name = name;
-        this.email = email;
+    public StudentResponse(String responseName, String responseEmail) {
+        this.responseName = responseName;
+        this.responseEmail = responseEmail;
     }
 
-    public String getName() {
-        return name;
+    public String getResponseName() {
+        return responseName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getResponseEmail() {
+        return responseEmail;
     }
 
     @Override
     public String toString() {
         return "StudentResponse{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
+                "responseName='" + responseName + '\'' +
+                ", responseEmail='" + responseEmail + '\'' +
                 '}';
     }
 }
