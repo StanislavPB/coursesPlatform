@@ -6,7 +6,7 @@ public class Question {
     private Map<Integer, String> questions;
     private Integer correctAnswer;
 
-    // constructor
+
     public Question(Integer questionId, String questionText, Map<Integer, String> questions, Integer correctAnswer) {
         this.questionId = questionId;
         this.questionText = questionText;

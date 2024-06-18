@@ -8,7 +8,7 @@ public class QuestionRepository {
     private Map<Integer, Question> questions = new HashMap<>();
     private Integer currentId = 0;
 
-    // Create
+
     public Question create(String questionText,Map<Integer, String> answers, Integer correctAnswer){
         int id = currentId++;
         Question question = new Question(id, questionText, answers, correctAnswer);
