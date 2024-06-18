@@ -9,7 +9,7 @@ List<Student> students;
 repository.TestRepository
 List<entities.Test> tests;
 
-QuestionRepository
+repository.QuestionRepository
 List<Question> questions;
 
 TestResultRepository
@@ -68,7 +68,7 @@ CREATE:
   update questions => DTO result
   deleteTest => boolean
 
-QuestionRepository
+repository.QuestionRepository
 int id;
 String questionText;
 Map<Integer (answerId), String (answerText)> questions;
