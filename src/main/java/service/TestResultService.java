@@ -5,7 +5,7 @@ import dto.TestResultResponce;
 import dto.TestResultRequest;
 import dto.TestResultSearchByIdResponse;
 import entity.TestResult;
-import repository.StudentRepository;
+import repository.StudentStudentRepository;
 import repository.TestRepository;
 import repository.TestResultRepository;
 import service.util.Validation;
@@ -17,10 +17,10 @@ import java.util.Optional;
 public class TestResultService {
     private TestResultRepository testResultRepository;
     private TestRepository testRepository;
-    private StudentRepository studentRepository;
+    private StudentStudentRepository studentRepository;
     private Validation validation;
 
-    public TestResultService(TestResultRepository testResultRepository, TestRepository testRepository, StudentRepository studentRepository, Validation validation) {
+    public TestResultService(TestResultRepository testResultRepository, TestRepository testRepository, StudentStudentRepository studentRepository, Validation validation) {
         this.testResultRepository = testResultRepository;
         this.testRepository = testRepository;
         this.studentRepository = studentRepository;
@@ -43,15 +43,15 @@ public class TestResultService {
 
         if (testResultOptional.isPresent()){
             TestResult testResultById = testResultOptional.get();
-            //Alex will fix it in his branch
-            String testTitle = testRepository.findById(testResultById.getTestId()).get;
-            String studentName = studentRepository.findById(testResultById.getStudentId()).getName;
+
+            String testTitle = testRepository.findById(testResultById.getTestId()).get().getTestTitle();
+            String studentName = studentRepository.findById(testResultById.getStudentId()).get().getName();
 
             TestResultClientResponse testResultClientResponse = new TestResultClientResponse(testTitle, studentName, testResultById.getResult());
 
             return new TestResultSearchByIdResponse(testResultClientResponse, errors);
         }else {
-            errors.add("entity.Test result with ID: " + testResultId + " not found");
+            errors.add("Entity Test Result with ID: " + testResultId + " not found");
             TestResultClientResponse testResultClientResponse = new TestResultClientResponse("", "", 0);
 
             return new TestResultSearchByIdResponse(testResultClientResponse, errors);

@@ -69,10 +69,12 @@ CREATE:
     deleteTest => boolean
 
 repository.QuestionRepository
-    int id;
-    String questionText;
-    Map<Integer (answerId), String (answerText)> questions;
-    int correctAnswer;
+
+private Integer questionId;
+private String questionText; // Как называется твой предмет?
+private Map<Integer, String> questions; // 1. Java, 2. Ruby
+private Integer correctAnswer; //1
+
 
 CREATE:
     - создается экземпляр класса
@@ -84,7 +86,7 @@ CREATE:
     find all (aka PrintAll) => список всех вопросов (вся коллекция)
     find by ID => объект вопрос
     update questionText => DTO result
-    update questions => DTO result
+    update answers => DTO result
     update correctAnswer => DTO result
     deleteQuestion => boolean
 

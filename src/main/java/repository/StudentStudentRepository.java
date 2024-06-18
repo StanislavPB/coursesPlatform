@@ -1,12 +1,13 @@
 package repository;
 
 import entity.Student;
+import repository.interfaces.InStudentRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class StudentRepository implements InRepository{
+public class StudentStudentRepository implements InStudentRepository {
     private int id = 0;
 
     private List<Student> students;

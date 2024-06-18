@@ -4,9 +4,9 @@ import java.util.Map;
 
 public class Question {
     private Integer questionId;
-    private String questionText;
-    private Map<Integer, String> questions;
-    private Integer correctAnswer;
+    private String questionText; // Как называется твой предмет?
+    private Map<Integer, String> questions; // 1. Java, 2. Ruby
+    private Integer correctAnswer; //1
 
 
     public Question(Integer questionId, String questionText, Map<Integer, String> questions, Integer correctAnswer) {
