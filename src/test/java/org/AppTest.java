@@ -29,7 +29,7 @@ public class AppTest
     }
 
     /**
-     * Rigourous entities.Test :-)
+     * Rigourous entity.Test :-)
      */
     public void testApp()
     {

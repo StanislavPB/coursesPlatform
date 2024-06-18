@@ -1,4 +1,4 @@
-package entities;
+package entity;
 
 public class Test {
     private int testId;
@@ -52,7 +52,7 @@ public class Test {
     }
     @Override
     public String toString() {
-        return "entities.Test{" +
+        return "entity.Test{" +
                 "testId=" + testId +
                 ", testTitle='" + testTitle + '\'' +
                 ", course=" + course +

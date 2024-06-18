@@ -7,7 +7,7 @@ StudentRepository
     List<Student> students;
 
 repository.TestRepository
-    List<entities.Test> tests;
+    List<entity.Test> tests;
 
 repository.QuestionRepository
     List<Question> questions;

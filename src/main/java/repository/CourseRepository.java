@@ -1,6 +1,6 @@
 package repository;
 
-import entities.Course;
+import entity.Course;
 
 import java.util.ArrayList;
 import java.util.List;

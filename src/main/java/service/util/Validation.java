@@ -17,7 +17,7 @@ public class Validation {
         List<String> errors = new ArrayList<>();
 
         if (testResultRequest.getTestId() < 0) {
-            errors.add("entities.Test ID must be greater than 0");
+            errors.add("entity.Test ID must be greater than 0");
         }
 
         if (testResultRequest.getStudentId() < 0) {
