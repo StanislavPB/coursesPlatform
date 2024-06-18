@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public class QuestionRepository {
     private Map<Integer, Question> questions = new HashMap<>();
-    private Integer currentId = 1;
+    private Integer currentId = 0;
 
     public Question create(String questionText,Map<Integer, String> answers, Integer correctAnswer){
         int id = currentId++;
