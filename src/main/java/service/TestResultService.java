@@ -94,5 +94,21 @@ public class TestResultService {
         return new TestResultClientResponse(testTitle, studentName, result);
     }
 
+    /*
+    статистика по тестам (service)
+        по конкретному тесту: всего раз пройден, средний результат
+            вход: testID
+            выход: statisticResponse: testId, testTitle, attempts, averageResult
+        по всем тестам: всего раз пройдено, средний результат
+            вход: -
+            выход: statisticResponse: attempts, averageResult
+        по конкретному студенту: всего тестов прошел, средний результат
+     */
+
+    //статистика по конкретному тесту:
+    public void printAllTestResultStatistic (){
+
+    }
+
 
 }
