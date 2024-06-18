@@ -1,11 +1,11 @@
-package repository;
+package repository.interfaces;
 
 import entity.Student;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface InRepository {
+public interface InStudentRepository {
     public Student add(Student newStudent);
 
     public List<Student> findAll();
