@@ -2,12 +2,13 @@ package repository;
 
 import dto.TestResultRequest;
 import entity.TestResult;
+import repository.interfaces.InTestResultRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TestResultRepository {
+public class TestResultRepository implements InTestResultRepository {
     private List<TestResult> testResults;
     private Integer idCounter;
 
