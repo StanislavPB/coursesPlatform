@@ -8,14 +8,18 @@ import dto.question.QuestionTextRequestUpdate;
 import entity.Question;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface InQuestionRepository {
+    //Create
+    Question create(String questionText, Map<Integer, String> answers, Integer correctAnswer);
+
     public QuestionResponse create(QuestionRequestCreate request);
 
     public List<Question> findAll();
 
-    public Optional<Question> findById (Integer questionId);
+    public List<QuestionResponse> searchByKeyword(String keyword);
 
     public QuestionResponse updateQuestionText(QuestionTextRequestUpdate request);
 
@@ -23,6 +27,17 @@ public interface InQuestionRepository {
 
     public QuestionResponse updateCorrectAnswer(CorrectAnswerRequestUpdate request);
 
+    // update questionText => DTO result
+    Question updateQuestionText(Integer questionId, String newQuestionText);
+
+    // update Answers => DTO result
+    Question updateAnswers(Integer questionId, Map<Integer, String> newAnswers);
+
+    // update correctAnswer => DTO result
+    Question updateCorrectAnswer(Integer questionId, Integer newCorrectAnswer);
+
     public boolean deleteQuestion(Integer questionId);
+
+
 
 }
