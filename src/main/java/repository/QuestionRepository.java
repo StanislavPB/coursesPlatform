@@ -1,12 +1,6 @@
 package repository;
 
-import dto.question.AnswersRequestUpdate;
-import dto.question.CorrectAnswerRequestUpdate;
-import dto.question.QuestionRequestCreate;
-import dto.question.QuestionResponse;
-import dto.question.QuestionTextRequestUpdate;
 import entity.Question;
-import repository.interfaces.InQuestionRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,19 +8,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class QuestionRepository implements InQuestionRepository {
+public class QuestionRepository {
     private Map<Integer, Question> questions = new HashMap<>();
     private Integer currentId = 0;
+//
 
-
-
-
-    @Override
-    public QuestionResponse create(QuestionRequestCreate request) {
+    public Question create(String questionText,Map<Integer, String> answers, Integer correctAnswer){
         int id = currentId++;
-        Question question = new Question(id, request.getQuestionText(), request.getAnswers(), request.getCorrectAnswer());
+        Question question = new Question(id, questionText, answers, correctAnswer);
         questions.put(id, question);
-        return new QuestionResponse(id, question.getQuestionText(), question.getCorrectAnswer(), question.getCorrectAnswer());
+        return question;
     }
 
     // find all (aka PrintAll) => список всех вопросов (вся коллекция)
@@ -37,21 +28,6 @@ public class QuestionRepository implements InQuestionRepository {
     // find by ID => объект вопрос
     public Optional<Question> findById (Integer questionId){
         return Optional.ofNullable(questions.get(questionId));
-    }
-
-    @Override
-    public QuestionResponse updateQuestionText(QuestionTextRequestUpdate request) {
-        return null;
-    }
-
-    @Override
-    public QuestionResponse updateAnswers(AnswersRequestUpdate request) {
-        return null;
-    }
-
-    @Override
-    public QuestionResponse updateCorrectAnswer(CorrectAnswerRequestUpdate request) {
-        return null;
     }
 
     // update questionText => DTO result
