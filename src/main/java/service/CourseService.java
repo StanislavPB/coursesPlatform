@@ -88,6 +88,7 @@ public class CourseService implements CourseServiceInterface {
         }
     }
 
+
     @Override
     public List<CourseResponse> getAllCourses() {
         return courseRepository.findAll().stream()
