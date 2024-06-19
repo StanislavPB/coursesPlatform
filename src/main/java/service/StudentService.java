@@ -25,6 +25,12 @@ public class StudentService {
         System.out.println(getAllStudents());
 
     }
+    public void updateName(int studentIdForUpdateName,String newName){
+        studentRepository.updateName(studentIdForUpdateName, newName);
+    }
+    public void updateEmail(int studentIdForUpdateEmail,String newEmail) {
+        studentRepository.updateEmail(studentIdForUpdateEmail, newEmail);
+    }
 
 
 
