@@ -60,6 +60,7 @@ public class UserMenu {
             switch (userChoice){
                 case 1:
                 //1. Create new Course
+
                     break;
                 case 2:
                 //2. Print Course content
@@ -118,15 +119,23 @@ public class UserMenu {
                     break;
                 case 20:
                 //20. Print all Test Results
+                    testResultService.printAllTestResults();
                     break;
                 case 21:
                 //21. Print all Test Results statistics
+                    testResultService.printAllTestResultStatistic();
                     break;
                 case 22:
                 //22. Print Test Results statistics of Student
+                    int studentId = ui.inputInt("Enter student ID for printing his Test Results statistics:");
+                    //лист может быть пустой, добавить проверку
+                    testResultService.printTestResultStatisticByStudentId(studentId);
                     break;
                 case 23:
                 //23. Print Test Results statistics of Test
+                    int testtId = ui.inputInt("Enter test ID for printing Results statistics:");
+                    //лист может быть пустой, добавить проверку
+                    testResultService.printTestResultStatisticByTestId(testtId);
                     break;
                 case 0:
                     System.out.println("The app has been shut down");

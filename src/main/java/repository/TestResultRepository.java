@@ -1,6 +1,6 @@
 package repository;
 
-import dto.TestResultRequest;
+import dto.testResult.TestResultRequest;
 import entity.TestResult;
 import repository.interfaces.InTestResultRepository;
 

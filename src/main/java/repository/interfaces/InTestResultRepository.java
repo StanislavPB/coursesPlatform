@@ -1,7 +1,6 @@
 package repository.interfaces;
 
-import dto.TestResultRequest;
-import entity.Student;
+import dto.testResult.TestResultRequest;
 import entity.TestResult;
 
 import java.util.List;

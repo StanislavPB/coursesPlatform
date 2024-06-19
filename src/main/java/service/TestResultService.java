@@ -1,6 +1,6 @@
 package service;
 
-import dto.*;
+import dto.testResult.*;
 import entity.TestResult;
 import repository.StudentStudentRepository;
 import repository.TestRepository;
@@ -72,19 +72,19 @@ public class TestResultService {
     }
 
     public TestResultSearchListResponse findTestResultByStudentId (int studentId){
-        List<TestResult> testResultByStudentId = testResultRepository.findByStudentId(studentId);
+        List<TestResult> testResultsByStudentId = testResultRepository.findByStudentId(studentId);
         List<String> errors = new ArrayList<>();
 
-        List<TestResultClientResponse> findTestResultsByStudentId = new ArrayList<>();
+        List<TestResultClientResponse> findedTestResultsByStudentId = new ArrayList<>();
 
-        if (!testResultByStudentId.isEmpty()){
-            for (TestResult result : testResultByStudentId){
-                findTestResultsByStudentId.add(createTestResultClientResponceDTO(result));
+        if (!testResultsByStudentId.isEmpty()){
+            for (TestResult result : testResultsByStudentId){
+                findedTestResultsByStudentId.add(createTestResultClientResponceDTO(result));
             }
-            return new TestResultSearchListResponse(findTestResultsByStudentId, errors);
+            return new TestResultSearchListResponse(findedTestResultsByStudentId, errors);
         }else {
             errors.add("Test results of test with ID: " + studentId + " not found");
-            return new TestResultSearchListResponse(findTestResultsByStudentId, errors);
+            return new TestResultSearchListResponse(findedTestResultsByStudentId, errors);
         }
     }
 
@@ -95,16 +95,6 @@ public class TestResultService {
         return new TestResultClientResponse(testTitle, studentName, result);
     }
 
-    /*
-    статистика по тестам (service)
-        по всем тестам: всего раз пройдено, средний результат
-            вход: -
-            выход: statisticResponse: allResultsAmount, averageResult
-
-        по конкретному студенту: всего тестов прошел, средний результат
-     */
-
-    //статистика по всем тестам:
     public void printAllTestResultStatistic (){
 
         int allResultsAmount = testResultRepository.findAll().size();
@@ -158,6 +148,16 @@ public class TestResultService {
         }
 
         System.out.printf("Student " + studentName + " has passed through " + attempts + "tests , average result is %.1f%n ", + averageResult);
+    }
+    public void printAllTestResults (){
+        for (TestResult result : testResultRepository.findAll()){
+            TestResultClientResponse resultForPrint = createTestResultClientResponceDTO(result);
+            System.out.println("====== All Test Results ======");
+            System.out.println("Test: " + resultForPrint.getTestTitle());
+            System.out.println("Student: " + resultForPrint.getStudentName());
+            System.out.println("Result: " + resultForPrint.getResult());
+            System.out.println("------");
+        }
     }
 
 

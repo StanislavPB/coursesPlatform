@@ -1,4 +1,4 @@
-package dto;
+package dto.testResult;
 
 import java.util.List;
 
