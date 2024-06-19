@@ -19,9 +19,8 @@ public class StudentService {
 
     public Optional<Student> getStudentById(int id) {
         return studentRepository.findById(id);
-
-
     }
+
 
 
 
