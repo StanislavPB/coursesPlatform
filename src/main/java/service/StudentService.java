@@ -10,7 +10,7 @@ public class StudentService {
     private final StudentRepository studentRepository = new StudentRepository();
 
     public Student createStudent(String name, String email) {
-        return studentRepository.add(new Student(0,name,email));
+        return studentRepository.add(new Student(name,email));
     }
 
     public List<Student> getAllStudents() {
