@@ -10,4 +10,5 @@ public class SearchByKeywordRequest {
     public String getKeyword() {
         return keyword;
     }
+    //
 }
