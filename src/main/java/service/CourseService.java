@@ -7,20 +7,20 @@ import entity.Student;
 import exception.CourseCreationException;
 import exception.CourseNotFoundException;
 import repository.interfaces.InterfaceCourseRepository;
+import service.interfaces.CourseServiceInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class CourseService {
+public class CourseService implements CourseServiceInterface {
     private final InterfaceCourseRepository courseRepository;
 
     public CourseService(InterfaceCourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
 
-    // Преобразование CourseRequest в Course
     private Course convertToEntity(CourseRequest courseRequest, int courseId) {
         return new Course(
                 courseId,
@@ -31,7 +31,6 @@ public class CourseService {
         );
     }
 
-    // Преобразование Course в CourseResponse
     private CourseResponse convertToResponse(Course course) {
         return new CourseResponse(
                 course.getCourseTitle(),
@@ -40,6 +39,7 @@ public class CourseService {
         );
     }
 
+    @Override
     public CourseResponse createCourse(CourseRequest courseRequest) throws CourseCreationException {
         try {
             int courseId = courseRepository.findAll().stream()
@@ -56,6 +56,7 @@ public class CourseService {
         }
     }
 
+    @Override
     public void addContentToCourse(Integer courseId, String content) throws CourseNotFoundException {
         try {
             Optional<Course> optionalCourse = courseRepository.findById(courseId);
@@ -71,6 +72,7 @@ public class CourseService {
         }
     }
 
+    @Override
     public void addStudentToCourse(Integer courseId, Student student) throws CourseNotFoundException {
         try {
             Optional<Course> optionalCourse = courseRepository.findById(courseId);
@@ -86,6 +88,7 @@ public class CourseService {
         }
     }
 
+    @Override
     public List<CourseResponse> getAllCourses() {
         return courseRepository.findAll().stream()
                 .map(this::convertToResponse)
