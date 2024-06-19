@@ -20,7 +20,7 @@ public class StudentService {
     public Optional<Student> getStudentById(int id) {
         return studentRepository.findById(id);
     }
-
+    // Вывод на печать всех студентов
     public void printAllStudents() {
         System.out.println(getAllStudents());
 
