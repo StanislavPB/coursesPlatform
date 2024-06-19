@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class StudentStudentRepository implements InStudentRepository {
+public class StudentRepository implements InStudentRepository {
     private int id = 0;
 
     private List<Student> students;
@@ -56,6 +56,17 @@ public class StudentStudentRepository implements InStudentRepository {
         return Optional.empty();
     }
 
+
+    public void updateName(int studentId, String newName) {
+        Optional<Student> student = findById(studentId);
+        student.ifPresent(value -> value.setName(newName));
+    }
+
+    public void updateEmail(int studentId, String newEmail) {
+        Optional<Student> student = findById(studentId);
+        student.ifPresent(value -> value.setEmail(newEmail));
+    }
+
     @Override
     public boolean delete(int id) {
         Optional<Student> studentById = findById(id);
@@ -66,7 +77,6 @@ public class StudentStudentRepository implements InStudentRepository {
         }
         return false;
     }
-
     @Override
     public boolean delete(Student student) {
         return students.remove(student);

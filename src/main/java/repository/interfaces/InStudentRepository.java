@@ -16,7 +16,7 @@ public interface InStudentRepository {
 
     public List<Student> findByName(String name);
 
-    public boolean delete(int id);
+   public boolean delete(int id);
 
     public boolean delete(Student student);
 
