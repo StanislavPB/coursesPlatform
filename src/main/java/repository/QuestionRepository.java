@@ -1,6 +1,12 @@
 package repository;
 
+import dto.question.AnswersRequestUpdate;
+import dto.question.CorrectAnswerRequestUpdate;
+import dto.question.QuestionRequestCreate;
+import dto.question.QuestionResponse;
+import dto.question.QuestionTextRequestUpdate;
 import entity.Question;
+import repository.interfaces.InQuestionRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,16 +14,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class QuestionRepository {
+public class QuestionRepository implements InQuestionRepository {
     private Map<Integer, Question> questions = new HashMap<>();
     private Integer currentId = 0;
 
 
-    public Question create(String questionText,Map<Integer, String> answers, Integer correctAnswer){
+
+
+    @Override
+    public QuestionResponse create(QuestionRequestCreate request) {
         int id = currentId++;
-        Question question = new Question(id, questionText, answers, correctAnswer);
+        Question question = new Question(id, request.getQuestionText(), request.getAnswers(), request.getCorrectAnswer());
         questions.put(id, question);
-        return question;
+        return new QuestionResponse(id, question.getQuestionText(), question.getCorrectAnswer(), question.getCorrectAnswer());
     }
 
     // find all (aka PrintAll) => список всех вопросов (вся коллекция)
@@ -28,6 +37,21 @@ public class QuestionRepository {
     // find by ID => объект вопрос
     public Optional<Question> findById (Integer questionId){
         return Optional.ofNullable(questions.get(questionId));
+    }
+
+    @Override
+    public QuestionResponse updateQuestionText(QuestionTextRequestUpdate request) {
+        return null;
+    }
+
+    @Override
+    public QuestionResponse updateAnswers(AnswersRequestUpdate request) {
+        return null;
+    }
+
+    @Override
+    public QuestionResponse updateCorrectAnswer(CorrectAnswerRequestUpdate request) {
+        return null;
     }
 
     // update questionText => DTO result
