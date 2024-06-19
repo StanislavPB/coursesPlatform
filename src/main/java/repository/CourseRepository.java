@@ -43,16 +43,7 @@ public class CourseRepository implements InterfaceCourseRepository {
                 .findFirst();
             }
 
-    @Override
-    public List<Course> updateCourseContent(Integer courseId, Course updatedCourse) {
-           Optional<Course> optionalCourse = findById(courseId);
-           optionalCourse.ifPresent(course -> {
-                    course.setCourseTitle(updatedCourse.getCourseTitle());
-                    course.setCourseDescription(updatedCourse.getCourseDescription());
-                    course.setCourseContent(updatedCourse.getCourseContent());
-                });
-                return courses;
-           }
+
     @Override
     public boolean deleteCourse(Course course) {
         return courses.remove(course);

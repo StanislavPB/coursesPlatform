@@ -12,8 +12,6 @@ public interface InterfaceCourseRepository {
         List<Course> findAll();
         Optional <Course> findByCourseTitle(String courseTitle);
 
-        List<Course> updateCourseContent(Integer courseId, Course updatedCourse);
-
         boolean deleteCourse(Course course);
         boolean deleteAllCourses(List<Course> coursesToDelete);
 
