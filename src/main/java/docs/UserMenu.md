@@ -1,3 +1,4 @@
+
 #### Цели и задачи:
 Разработайте систему для проведения онлайн-курсов, которая
 включает в себя:
@@ -47,29 +48,31 @@ private List<Question> questions;
 Добавить Курс к тесту
 Добавить коллекцию вопросов List<Question> questions
 Редактировать коллекцию вопросов:
-Добавить Вопрос в коллекцию
-Удалить Вопрос из коллекции
+  Добавить Вопрос в коллекцию
+  Удалить Вопрос из коллекции
+
 
 Пройти тест Студентом: => получить результат TestResult
 
 ##Question
-private Integer questionId;
-private String questionText; // Как называется твой предмет?
-private Map<Integer, String> questions; // 1. Java, 2. Ruby
-private Integer correctAnswer; //1
+      private Integer questionId;
+      private String questionText; // Как называется твой предмет?
+      private Map<Integer, String> questions; // 1. Java, 2. Ruby
+      private Integer correctAnswer; //1
 
 Создать новый вопрос
 Редактировать вопрос:
-Изменить Название вопроса
-Изменить вариант ответа: Текст варианта ответа
-Изменить правильный ответ
+  Изменить Название вопроса
+  Изменить вариант ответа: Текст варианта ответа
+  Изменить правильный ответ
 Вывод на экран списка всех вопросов
 Поиск вопросов по ключевому слову: => вывод на экран списка вопросов, содержащих слово
 
 ##Test Result
-private int testId;
-private int studentId;
-private double result;
+
+        private int testId;
+        private int studentId;
+        private double result;
 
 Вывод на экран списка всех результатов тестов
 Вывод на экран статистики по всем тестам

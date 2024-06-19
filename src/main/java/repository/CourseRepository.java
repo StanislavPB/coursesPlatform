@@ -1,16 +1,19 @@
 package repository;
 
 import entity.Course;
+import repository.interfaces.InterfaceCourseRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class CourseRepository {
+import java.util.Optional;
+public class CourseRepository implements InterfaceCourseRepository {
     private List<Course> courses;
 
     public CourseRepository(List<Course> courses) {
         this.courses = new ArrayList<>();
     }
+
+    @Override
     public List<Course> addCourse (String courseTitle, String courseDescription){
         int courseId = courses.isEmpty() ? 1 : courses.stream()
                                               .mapToInt(Course::getCourseId)
@@ -21,47 +24,35 @@ public class CourseRepository {
 
         return courses;
     }
-    public Course findById(Integer courseId) {
-        for (Course course : courses) {
-            if (course.getCourseId().equals(courseId)) {
-                return course;
+
+    @Override
+    public Optional <Course> findById(Integer courseId) {
+        return courses.stream()
+                .filter(course ->course.getCourseId().equals(courseId))
+                .findFirst();
             }
-        }
-        return null;
-    }
 
+    @Override
     public List<Course> findAll(){
-
         return courses;
     }
-
-    public Course findByCourseTitle(String courseTitle) {
-        for (Course course : courses) {
-            if (course.getCourseTitle().equals(courseTitle)) {
-                return course;
-            }
-        }
-        return null;
-    }
-
-    public List<Course> updateCourseContent(Integer courseId, Course updatedCourse) {
-           Course course = findById(courseId);
-                if (course != null) {
-                    course.setCourseTitle(updatedCourse.getCourseTitle());
-                    course.setCourseDescription(updatedCourse.getCourseDescription());
-                    course.setCourseContent(updatedCourse.getCourseContent());
-                }
-                return courses;
+    @Override
+    public Optional <Course> findByCourseTitle(String courseTitle) {
+        return courses.stream()
+                .filter(course -> course.getCourseTitle().equals(courseTitle))
+                .findFirst();
             }
 
-        public boolean deleteCourse(Course course) {
-            return courses.remove(course);
+
+    @Override
+    public boolean deleteCourse(Course course) {
+        return courses.remove(course);
         }
 
+    @Override
     public boolean deleteAllCourses(List<Course> coursesToDelete) {
         return courses.removeAll(coursesToDelete);
     }
-
 }
 
 

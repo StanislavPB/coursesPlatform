@@ -2,7 +2,7 @@ package service;
 
 import dto.testResult.*;
 import entity.TestResult;
-import repository.StudentStudentRepository;
+import repository.StudentRepository;
 import repository.TestRepository;
 import repository.TestResultRepository;
 import service.util.Validation;
@@ -15,10 +15,10 @@ import java.util.OptionalDouble;
 public class TestResultService {
     private TestResultRepository testResultRepository;
     private TestRepository testRepository;
-    private StudentStudentRepository studentRepository;
+    private StudentRepository studentRepository;
     private Validation validation;
 
-    public TestResultService(TestResultRepository testResultRepository, TestRepository testRepository, StudentStudentRepository studentRepository, Validation validation) {
+    public TestResultService(TestResultRepository testResultRepository, TestRepository testRepository, StudentRepository studentRepository, Validation validation) {
         this.testResultRepository = testResultRepository;
         this.testRepository = testRepository;
         this.studentRepository = studentRepository;
