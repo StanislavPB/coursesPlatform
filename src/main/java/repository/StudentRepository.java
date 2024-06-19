@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class StudentStudentRepository implements InStudentRepository {
+public class StudentRepository implements InStudentRepository {
     private int id = 0;
 
     private List<Student> students;
