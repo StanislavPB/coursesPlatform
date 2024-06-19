@@ -68,15 +68,11 @@ public class StudentRepository implements InStudentRepository {
     }
     public void updateName(int studentId, String newName) {
         Optional<Student> student = findById(studentId);
-        if (student.isPresent()) {
-            student.get().setName(newName);
-        }
+        student.ifPresent(value -> value.setName(newName));
     }
     public void updateEmail(int studentId, String newEmail) {
         Optional<Student> student = findById(studentId);
-        if (student.isPresent()) {
-            student.get().setEmail(newEmail);
-        }
+        student.ifPresent(value -> value.setEmail(newEmail));
     }
 
 
