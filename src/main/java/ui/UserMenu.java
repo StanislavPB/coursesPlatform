@@ -23,15 +23,15 @@ public class UserMenu {
     private final CourseService courseService;
     private final QuestionService questionService;
     private final StudentService studentService;
-    private final TestService testService;
+    //private final TestService testService;
     private final TestResultService testResultService;
     private final UserInput ui = new UserInput();
 
-    public UserMenu(CourseService courseService, QuestionService questionService, StudentService studentService, TestService testService, TestResultService testResultService) {
+    public UserMenu(CourseService courseService, QuestionService questionService, StudentService studentService, /*TestService testService,*/ TestResultService testResultService) {
         this.courseService = courseService;
         this.questionService = questionService;
         this.studentService = studentService;
-        this.testService = testService;
+        //this.testService = testService;
         this.testResultService = testResultService;
     }
     private void printMenu(){
