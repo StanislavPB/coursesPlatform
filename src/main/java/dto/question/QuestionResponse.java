@@ -5,10 +5,10 @@ import java.util.Map;
 public class QuestionResponse {
     private Integer questionId;
     private String questionText;
-    private Integer answers;
+    private Map<Integer, String> answers;
     private Integer correctAnswer;
 
-    public QuestionResponse(Integer questionId, String questionText, Integer answers, Integer correctAnswer) {
+    public QuestionResponse(Integer questionId, String questionText, Map<Integer, String> answers, Integer correctAnswer) {
         this.questionId = questionId;
         this.questionText = questionText;
         this.answers = answers;
@@ -31,12 +31,12 @@ public class QuestionResponse {
         this.questionText = questionText;
     }
 
-    public Integer getAnswers() {
+    public Map<Integer, String> getAnswers() {
         return answers;
     }
 
     public void setAnswers(Map<Integer, String> answers) {
-        this.answers = answers.size();
+        this.answers = answers;
     }
 
     public Integer getCorrectAnswer() {
