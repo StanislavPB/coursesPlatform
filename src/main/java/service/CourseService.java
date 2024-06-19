@@ -15,7 +15,6 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
-    // Создание нового курса
     public Course createCourse(String courseTitle, String courseDescription) throws CourseCreationException {
         try {
             courseRepository.addCourse(courseTitle, courseDescription);
@@ -26,7 +25,6 @@ public class CourseService {
         }
     }
 
-    // Добавление контента в курс
     public void addContentToCourse(Integer courseId, String content) throws CourseNotFoundException {
         try {
             Optional<Course> optionalCourse = courseRepository.findById(courseId);
@@ -42,7 +40,6 @@ public class CourseService {
         }
     }
 
-    // Добавление студента в курс
     public void addStudentToCourse(Integer courseId, Student student) throws CourseNotFoundException {
         try {
             Optional<Course> optionalCourse = courseRepository.findById(courseId);
