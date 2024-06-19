@@ -108,7 +108,7 @@ public class CourseService implements CourseServiceInterface {
         List<CourseResponse> courseResponses = courseRepository.findAll().stream()
                 .map(this::convertToResponse)
                 .collect(Collectors.toList());
-
+//Print это отдельный метод, лучше бы это вынести, но пока просто использую
         System.out.println("All courses:");
         System.out.println();
         courseResponses.forEach(courseResponse -> {
