@@ -2,7 +2,7 @@ package service.util;
 
 
 
-import dto.TestResultRequest;
+import dto.testResult.TestResultRequest;
 import java.util.ArrayList;
 import java.util.List;
 

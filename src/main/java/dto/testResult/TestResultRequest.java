@@ -1,4 +1,4 @@
-package dto;
+package dto.testResult;
 
 public class TestResultRequest {
     private int testId;

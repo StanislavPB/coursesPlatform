@@ -1,12 +1,12 @@
-package dto;
+package dto.testResult;
 
 import java.util.List;
 
-public class TestResultSearchByIdResponse {
+public class TestResultSearchItemResponse {
     private TestResultClientResponse testResultClientResponse;
     private List<String> errors;
 
-    public TestResultSearchByIdResponse(TestResultClientResponse testResultClientResponse, List<String> errors) {
+    public TestResultSearchItemResponse(TestResultClientResponse testResultClientResponse, List<String> errors) {
         this.testResultClientResponse = testResultClientResponse;
         this.errors = errors;
     }
