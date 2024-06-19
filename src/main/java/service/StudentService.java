@@ -21,7 +21,10 @@ public class StudentService {
         return studentRepository.findById(id);
     }
 
+    public void printAllStudents() {
+        System.out.println(getAllStudents());
 
+    }
 
 
 
