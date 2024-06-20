@@ -14,6 +14,9 @@ public class TestResult {
         this.result = result;
     }
 
+    public TestResult(int testId, int studentId, double result) {
+    }
+
     public int getResultId() {
         return resultId;
     }
