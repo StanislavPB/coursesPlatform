@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface InTestRepository {
-    Test createTest(String testTitle, Course course);
+//    Test createTest(String testTitle, Course course);
+
+    Test createTest(String testTitle, int courseId);
+
     List<Test> findAll();
     Optional<Test> findById(int testId);
     Optional<Test> findByTitle(String testTitle);

@@ -6,7 +6,6 @@ public class Test {
     private int testId;
     private String testTitle;
     private int courseId;
-    private Course course;
     private List<Question> questions;
 
     // Конструктор без параметров
@@ -14,12 +13,14 @@ public class Test {
     }
 
     // Конструктор с параметрами
-    public Test(int testId, String testTitle, Course course, List<Question> questions) {
-        this.testId = testId;
-        this.testTitle = testTitle;
-        this.course = course;
-        this.questions = questions;
-    }
+
+//    public Test(int testId, String testTitle, Course course, List<Question> questions) {
+//        this.testId = testId;
+//        this.testTitle = testTitle;
+//        this.course = course;
+//        this.questions = questions;
+//    }
+
 
     public Test(int testId, String testTitle, int courseId, List<Question> questions) {
         this.testId = testId;
@@ -45,13 +46,7 @@ public class Test {
         this.testTitle = testTitle;
     }
 
-    public Course getCourse() {
-        return course;
-    }
 
-    public void setCourse(Course course) {
-        this.course = course;
-    }
 
     public int getCourseId() {
         return courseId;

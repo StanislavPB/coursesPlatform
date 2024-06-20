@@ -1,6 +1,6 @@
 package exception;
 
-public class TestNotFoundException {
+public class TestNotFoundException extends Throwable {
     private String message;
 
     public TestNotFoundException(String message) {

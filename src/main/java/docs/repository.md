@@ -6,10 +6,9 @@ CourseRepository
 StudentRepository
     List<Student> students;
 
-repository.TestRepository
+TestRepository
     List<entity.Test> tests;
-
-repository.QuestionRepository
+QuestionRepository
     List<Question> questions;
 
 TestResultRepository

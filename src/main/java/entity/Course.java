@@ -12,7 +12,7 @@ public class Course {
     private List<String> courseContent;
     private List<Student> students;
 
-    public Course(int courseId, String courseTitle, String courseDescription, List<String> courseContent, List<Student> students) {
+    public Course(int courseId, String courseTitle, String courseDescription) {
         this.courseId = courseId;
         this.courseTitle = courseTitle;
         this.courseDescription = courseDescription;

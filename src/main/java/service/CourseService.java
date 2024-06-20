@@ -41,9 +41,8 @@ public class CourseService implements CourseServiceInterface {
             Course newCourse = new Course(
                     courseId,
                     courseRequest.getCourseTitle(),
-                    courseRequest.getCourseDescription(),
-                    new ArrayList<>(),
-                    new ArrayList<>()
+                    courseRequest.getCourseDescription()
+
             );
 
             courseRepository.addCourse(newCourse.getCourseTitle(), newCourse.getCourseDescription());

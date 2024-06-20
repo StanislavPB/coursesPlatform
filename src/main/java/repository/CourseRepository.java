@@ -22,7 +22,7 @@ public class CourseRepository implements InterfaceCourseRepository {
                 .mapToInt(Course::getCourseId)
                 .max()
                 .orElse(0) + 1;
-        Course newCourse = new Course(courseId, courseTitle, courseDescription, new ArrayList<>(), new ArrayList<>());
+        Course newCourse = new Course(courseId, courseTitle, courseDescription);
         courses.add(newCourse);
         return courses;
     }
