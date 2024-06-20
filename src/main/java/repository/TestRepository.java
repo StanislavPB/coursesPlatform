@@ -1,50 +1,51 @@
 package repository;
 
-import entity.Course;
-import entity.Question;
 import entity.Test;
+import entity.Question;
+import entity.Course;
+import repository.interfaces.InTestRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class TestRepository {
-    private List<Test> tests = new ArrayList<>();
-    private int currentId = 1;
+public class TestRepository implements InTestRepository {
+    private List<Test> tests;
 
-    // CREATE: создание нового теста
+    public TestRepository() {
+        this.tests = new ArrayList<>();
+    }
+
+    @Override
     public Test createTest(String testTitle, Course course) {
-        Test test = new Test();
-        test.setTestId(currentId++);
-        test.setTestTitle(testTitle);
-        test.setCourse(course);
-        test.setQuestions(new ArrayList<>());
+        int testId = generateUniqueId();
+        Test test = new Test(testId, testTitle, course, new ArrayList<>());
         tests.add(test);
         return test;
     }
 
-    // findAll: список всех тестов
+    @Override
     public List<Test> findAll() {
-        return new ArrayList<>(tests);
+        return tests;
     }
 
-    // findById: поиск теста по ID
+    @Override
     public Optional<Test> findById(int testId) {
         return tests.stream().filter(test -> test.getTestId() == testId).findFirst();
     }
 
-    // findByTitle: поиск теста по названию
+    @Override
     public Optional<Test> findByTitle(String testTitle) {
-        return tests.stream().filter(test -> test.getTestTitle().equals(testTitle)).findFirst();
+        return tests.stream().filter(test -> test.getTestTitle().equalsIgnoreCase(testTitle)).findFirst();
     }
 
-    // findByCourse: поиск тестов по курсу
+    @Override
     public List<Test> findByCourse(int courseId) {
         return tests.stream().filter(test -> test.getCourse().getCourseId() == courseId).collect(Collectors.toList());
     }
 
-    // updateTestTitle: обновление названия теста
+    @Override
     public boolean updateTestTitle(int testId, String newTitle) {
         Optional<Test> testOptional = findById(testId);
         if (testOptional.isPresent()) {
@@ -55,7 +56,7 @@ public class TestRepository {
         return false;
     }
 
-    // updateCourse: обновление курса теста
+    @Override
     public boolean updateCourse(int testId, Course newCourse) {
         Optional<Test> testOptional = findById(testId);
         if (testOptional.isPresent()) {
@@ -66,19 +67,23 @@ public class TestRepository {
         return false;
     }
 
-    // updateQuestions: обновление вопросов теста
-    public boolean updateQuestions(int testId, List<Question> newQuestions) {
+    @Override
+    public boolean updateQuestions(int testId, List<Question> questions) {
         Optional<Test> testOptional = findById(testId);
         if (testOptional.isPresent()) {
             Test test = testOptional.get();
-            test.setQuestions(newQuestions);
+            test.setQuestions(questions);
             return true;
         }
         return false;
     }
 
-    // deleteTest: удаление теста
+    @Override
     public boolean deleteTest(int testId) {
         return tests.removeIf(test -> test.getTestId() == testId);
+    }
+
+    private int generateUniqueId() {
+        return tests.size() + 1;
     }
 }

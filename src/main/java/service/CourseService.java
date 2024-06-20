@@ -53,7 +53,7 @@ public class CourseService implements CourseServiceInterface {
 
             return convertToResponse(createdCourse);
         } catch (Exception e) {
-            throw new CourseCreationException("Ошибка при создании курса: " + e.getMessage());
+            throw new CourseCreationException("Error creating course: " + e.getMessage());
         }
     }
 
@@ -66,10 +66,10 @@ public class CourseService implements CourseServiceInterface {
                 course.getCourseContent().add(content);
 
             } else {
-                throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
+                throw new CourseNotFoundException("Course with ID " + courseId + " not found");
             }
         } catch (Exception e) {
-            throw new CourseNotFoundException("Ошибка при добавлении контента к курсу: " + e.getMessage());
+            throw new CourseNotFoundException("Error adding content to course: " + e.getMessage());
         }
     }
 
@@ -82,7 +82,7 @@ public class CourseService implements CourseServiceInterface {
 
             return "Student added to the course successfully";
         } else {
-            throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
+            throw new CourseNotFoundException("Course with ID " + courseId + " not found");
         }
     }
 
@@ -92,7 +92,7 @@ public class CourseService implements CourseServiceInterface {
                 .map(this::convertToResponse)
                 .collect(Collectors.toList());
 
-        System.out.println("Все курсы:");
+        System.out.println("All courses:");
         System.out.println();
         courseResponses.forEach(courseResponse -> {
             System.out.println(courseResponse);
@@ -112,10 +112,10 @@ public class CourseService implements CourseServiceInterface {
                 course.setCourseDescription(updatedCourse.getCourseDescription());
 
             } else {
-                throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
+                throw new CourseNotFoundException("Course with ID " + courseId + " not found");
             }
         } catch (Exception e) {
-            throw new CourseNotFoundException("Ошибка при обновлении контента курса: " + e.getMessage());
+            throw new CourseNotFoundException("Error updating course content: " + e.getMessage());
         }
     }
 
@@ -124,11 +124,11 @@ public class CourseService implements CourseServiceInterface {
         Optional<Course> optionalCourse = courseRepository.findCourseById(courseId);
         if (optionalCourse.isPresent()) {
             Course course = optionalCourse.get();
-            System.out.println("Контент курса:");
+            System.out.println("Course content:");
             System.out.println();
             course.getCourseContent().forEach(System.out::println);
         } else {
-            throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
+            throw new CourseNotFoundException("Course with ID " + courseId + " not found");
         }
     }
 
@@ -137,10 +137,10 @@ public class CourseService implements CourseServiceInterface {
         Optional<Course> optionalCourse = courseRepository.findCourseById(courseId);
         if (optionalCourse.isPresent()) {
             Course course = optionalCourse.get();
-            System.out.println("Студенты курса:");
+            System.out.println("Students of the course:");
             course.getStudents().forEach(student -> System.out.println(student.getName())); // Предполагается, что у студента есть метод getName()
         } else {
-            throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
+            throw new CourseNotFoundException("Course with ID " + courseId + " not found");
         }
     }
 
@@ -152,10 +152,10 @@ public class CourseService implements CourseServiceInterface {
             if (contentIndex >= 0 && contentIndex < course.getCourseContent().size()) {
                 course.getCourseContent().set(contentIndex, newContent);
             } else {
-                throw new CourseNotFoundException("Индекс контента выходит за пределы");
+                throw new CourseNotFoundException("The content index is out of bounds");
             }
         } else {
-            throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
+            throw new CourseNotFoundException("Course with ID " + courseId + " not found");
         }
     }
 
@@ -166,7 +166,7 @@ public class CourseService implements CourseServiceInterface {
             Course course = optionalCourse.get();
             course.getCourseContent().remove(content);
         } else {
-            throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
+            throw new CourseNotFoundException("Course with ID " + courseId + " not found");
         }
     }
 
@@ -177,7 +177,7 @@ public class CourseService implements CourseServiceInterface {
             Course course = optionalCourse.get();
             course.getStudents().remove(student);
         } else {
-            throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
+            throw new CourseNotFoundException("Course with ID " + courseId + " not found");
         }
     }
 
@@ -188,7 +188,7 @@ public class CourseService implements CourseServiceInterface {
             Course course = optionalCourse.get();
             return convertToResponse(course);
         } else {
-            throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
+            throw new CourseNotFoundException("Course with ID " + courseId + " not found");
         }
     }
 }
