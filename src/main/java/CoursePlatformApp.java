@@ -10,6 +10,7 @@ import ui.UserMenu;
 public class CoursePlatformApp {
     public static void main(String[] args) throws CourseCreationException, CourseNotFoundException, InterruptedException {
 
+
         InterfaceCourseRepository courseRepository = new CourseRepository();
         CourseService courseService = new CourseService(courseRepository);
 
