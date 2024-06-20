@@ -6,6 +6,7 @@ import dto.question.QuestionRequestCreate;
 import dto.question.QuestionResponse;
 import dto.question.QuestionTextRequestUpdate;
 import entity.Question;
+import repository.QuestionRepository;
 import repository.interfaces.InQuestionRepository;
 import service.util.QuestionValidation;
 

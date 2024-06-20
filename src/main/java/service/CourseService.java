@@ -6,6 +6,7 @@ import entity.Course;
 import entity.Student;
 import exception.CourseCreationException;
 import exception.CourseNotFoundException;
+import repository.CourseRepository;
 import repository.interfaces.InterfaceCourseRepository;
 import service.interfaces.CourseServiceInterface;
 
