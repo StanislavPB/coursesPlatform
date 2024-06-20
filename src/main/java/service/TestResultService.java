@@ -114,42 +114,67 @@ public class TestResultService {
 
     public void printTestResultStatisticByTestId (int testId){
 
-        List<TestResult> findedTestesults = testResultRepository.findByTestId(testId);
-        int attempts = findedTestesults.size();
-        double averageResult;
-        String testTitle = testRepository.findById(testId).get().getTestTitle();
+        TestResultSearchListResponse searchResult = findTestResultByTestId (testId);
 
-        OptionalDouble average = findedTestesults.stream()
-                .mapToDouble(TestResult :: getResultId)
-                .average();
-        if(average.isPresent()){
-            averageResult = average.getAsDouble();
+        if (searchResult.getErrors().isEmpty()) {
+
+            List<TestResultClientResponse> responseList = searchResult.getTestResultClientListResponse();
+
+            int attempts = responseList.size();
+            String testTitle = responseList.get(0).getTestTitle();
+
+            double averageResult;
+
+            OptionalDouble average = responseList.stream()
+                    .mapToDouble(TestResultClientResponse::getResult)
+                    .average();
+            if (average.isPresent()) {
+                averageResult = average.getAsDouble();
+            } else {
+                averageResult = 0.0;
+            }
+
+            System.out.printf("Total amount of test \"" + testTitle + "\" is " + attempts + " , average result is %.1f%n ", + averageResult);
+
         } else {
-            averageResult = 0.0;
+            for (String error : searchResult.getErrors()) {
+                System.out.println(error);
+            }
         }
-
-        System.out.printf("Total amount of test \"" + testTitle + "\" is " + attempts + " , average result is %.1f%n ", + averageResult);
     }
 
-    public void printTestResultStatisticByStudentId (int studentId){
+    public void printTestResultStatisticByStudentId (int studentId) {
 
-        List<TestResult> findedTestesults = testResultRepository.findByStudentId(studentId);
-        int attempts = findedTestesults.size();
-        double averageResult;
-        String studentName = studentRepository.findById(studentId).get().getName();
+        TestResultSearchListResponse searchResult = findTestResultByStudentId(studentId);
 
-        OptionalDouble average = findedTestesults.stream()
-                .mapToDouble(TestResult :: getResultId)
-                .average();
-        if(average.isPresent()){
-            averageResult = average.getAsDouble();
+        if (searchResult.getErrors().isEmpty()) {
+
+            List<TestResultClientResponse> responseList = searchResult.getTestResultClientListResponse();
+
+            int attempts = responseList.size();
+            String studentName = responseList.get(0).getStudentName();
+
+            double averageResult;
+
+            OptionalDouble average = responseList.stream()
+                    .mapToDouble(TestResultClientResponse::getResult)
+                    .average();
+            if (average.isPresent()) {
+                averageResult = average.getAsDouble();
+            } else {
+                averageResult = 0.0;
+            }
+
+            System.out.printf("Student " + studentName + " has passed through " + attempts + "tests , average result is %.1f%n ", +averageResult);
+
         } else {
-            averageResult = 0.0;
+            for (String error : searchResult.getErrors()) {
+                System.out.println(error);
+            }
         }
-
-        System.out.printf("Student " + studentName + " has passed through " + attempts + "tests , average result is %.1f%n ", + averageResult);
     }
-    public void printAllTestResults (){
+
+    public void printAllTestResults(){
         for (TestResult result : testResultRepository.findAll()){
             TestResultClientResponse resultForPrint = createTestResultClientResponceDTO(result);
             System.out.println("====== All Test Results ======");

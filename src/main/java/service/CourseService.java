@@ -88,16 +88,18 @@ public class CourseService implements CourseServiceInterface {
 
     @Override
     public void addStudentToCourse(Integer courseId, Student student) throws CourseNotFoundException {
+        //Вернут в результате работы метода
         try {
             Optional<Course> optionalCourse = courseRepository.findById(courseId);
             if (optionalCourse.isPresent()) {
                 Course course = optionalCourse.get();
                 course.getStudents().add(student);
 
-            } else {
+            } else { //создать новый courseNotFoundException
                 throw new CourseNotFoundException("Course with ID " + courseId + " not found");
             }
         } catch (Exception e) {
+            //список ошибок, наполняется из exception.getMessage
             throw new CourseNotFoundException("An error occurred while adding the student to the course: " + e.getMessage());
         }
     }
@@ -108,7 +110,7 @@ public class CourseService implements CourseServiceInterface {
         List<CourseResponse> courseResponses = courseRepository.findAll().stream()
                 .map(this::convertToResponse)
                 .collect(Collectors.toList());
-
+//Print это отдельный метод, лучше бы это вынести, но пока просто использую
         System.out.println("All courses:");
         System.out.println();
         courseResponses.forEach(courseResponse -> {
