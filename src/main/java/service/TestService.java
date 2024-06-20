@@ -1,5 +1,6 @@
 package service;
 
+
 import dto.testResult.TestResultRequest;
 import entity.Test;
 import entity.Course;
@@ -12,11 +13,13 @@ import exception.CourseNotFoundException;
 import service.interfaces.InTestService;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class TestService implements InTestService {
     private final InTestRepository testRepository;
     private final CourseService courseService;
+
     private final QuestionService questionService;
     private final TestResultService testResultService;
     private final TestValidation validation;
@@ -127,20 +130,70 @@ public class TestService implements InTestService {
     }
 
     // Метод для прохождения теста студентом
-    public TestResult startTest(int testId, int studentId, List<Integer> answers) {
+    public TestResultResponce startTest(int testId, int studentId, List<Integer> answers) {
         Optional<Test> testOptional = testRepository.findById(testId);
+        //Нужна еще проверка на наличие такого студента (может быть не тут, а при вызове)
         if (testOptional.isPresent()) {
             Test test = testOptional.get();
             int correctAnswers = 0;
             List<Question> questions = test.getQuestions();
             for (int i = 0; i < questions.size(); i++) {
-                if (questions.get(i).getCorrectAnswer() == answers.get(i)) {
+
+                if (Objects.equals(questions.get(i).getCorrectAnswer(), answers.get(i))) {
+
                     correctAnswers++;
                 }
             }
             double result = (double) correctAnswers / questions.size() * 100;
-            return new TestResult(testId, studentId, result);
+            TestResultRequest testResultRequest = new TestResultRequest(testId, studentId, result);
+            return testResultService.addNewTestResult(testResultRequest);
         }
         return null; // или выбросить исключение
+    }
+
+
+    // Преобразование из сущности в DTO
+    //TestDTO(int testId, String testTitle, int courseId, List<QuestionDTO> questions)
+    //   Test(int testId, String testTitle, Course course, List<Question> questions)
+    private TestDTO toDTO(Test test) {
+        return new TestDTO(
+                test.getTestId(),
+                test.getTestTitle(),
+                test.getCourse().getCourseId(),
+                test.getQuestions().stream().map(this::toDTO).collect(Collectors.toList())
+        );
+    }
+
+    // Преобразование из DTO в сущность
+    private QuestionDTO toDTO(Question question) {
+        return new QuestionDTO(
+                question.getQuestionId(),
+                question.getQuestionText(),
+                question.getAnswers().stream().map(this::toDTO).collect(Collectors.toList()),
+                question.getCorrectAnswerId()
+        );
+    }
+
+    private Question fromDTO(QuestionDTO questionDTO) {
+        return new Question(
+                questionDTO.getQuestionId(),
+                questionDTO.getQuestionText(),
+                questionDTO.getAnswers().stream().map(this::fromDTO).collect(Collectors.toList()),
+                questionDTO.getCorrectAnswerId()
+        );
+    }
+
+    private AnswerDTO toDTO(Answer answer) {
+        return new AnswerDTO(
+                answer.getAnswerId(),
+                answer.getAnswerText()
+        );
+    }
+
+    private Answer fromDTO(AnswerDTO answerDTO) {
+        return new Answer(
+                answerDTO.getAnswerId(),
+                answerDTO.getAnswerText()
+        );
     }
 }

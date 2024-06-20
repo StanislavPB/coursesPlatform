@@ -6,6 +6,7 @@ import entity.Course;
 import entity.Student;
 import exception.CourseCreationException;
 import exception.CourseNotFoundException;
+import repository.CourseRepository;
 import repository.interfaces.InterfaceCourseRepository;
 import service.interfaces.CourseServiceInterface;
 
@@ -28,7 +29,7 @@ public class CourseService implements CourseServiceInterface {
                 course.getCourseContent()
         );
     }
-
+//Optional<Course> findCourseById (int courseId);
     @Override
     public CourseResponse createCourse(CourseRequest courseRequest) throws CourseCreationException {
         try {

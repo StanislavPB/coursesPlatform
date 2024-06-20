@@ -12,8 +12,8 @@ import java.util.Optional;
 public class CourseRepository implements InterfaceCourseRepository {
     private List<Course> courses;
 
-    public CourseRepository(List<Course> courses) {
-        this.courses = courses;
+    public CourseRepository() {
+        this.courses = new ArrayList<>();
     }
 
     @Override

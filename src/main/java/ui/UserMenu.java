@@ -4,15 +4,11 @@ import dto.CourseRequest;
 import dto.question.QuestionRequestCreate;
 import dto.question.QuestionResponse;
 import dto.testResult.TestResultRequest;
-import entity.Course;
 import entity.Question;
 import entity.Student;
 import exception.CourseCreationException;
 import exception.CourseNotFoundException;
-import service.CourseService;
-import service.QuestionService;
-import service.StudentService;
-import service.TestResultService;
+import service.*;
 import service.util.UserInput;
 
 import java.util.HashMap;
@@ -23,15 +19,15 @@ public class UserMenu {
     private final CourseService courseService;
     private final QuestionService questionService;
     private final StudentService studentService;
-    //private final TestService testService;
+    private final TestService testService;
     private final TestResultService testResultService;
     private final UserInput ui = new UserInput();
 
-    public UserMenu(CourseService courseService, QuestionService questionService, StudentService studentService, /*TestService testService,*/ TestResultService testResultService) {
+    public UserMenu(CourseService courseService, QuestionService questionService, StudentService studentService, TestService testService, TestResultService testResultService) {
         this.courseService = courseService;
         this.questionService = questionService;
         this.studentService = studentService;
-        //this.testService = testService;
+        this.testService = testService;
         this.testResultService = testResultService;
     }
     private void printMenu(){
@@ -82,6 +78,7 @@ public class UserMenu {
                     String courseTitle = ui.inputText("Enter the course title:");
                     String courseDescription = ui.inputText("Enter the course description:");
                     CourseRequest request = new CourseRequest(courseTitle, courseDescription);
+
                     courseService.createCourse(request);
 
                     break;
@@ -90,6 +87,7 @@ public class UserMenu {
 
                     System.out.println("====== Print Course content ======");
                     Integer courseId = ui.inputInt("Enter course ID:");
+
                     courseService.printCourseContent(courseId);
 
                     break;
@@ -99,6 +97,7 @@ public class UserMenu {
                     System.out.println("====== Print Students from Course ======");
 
                     Integer courseIdForStudentSearch = ui.inputInt("Enter course ID:");
+
                     courseService.printCourseStudents(courseIdForStudentSearch);
 
                     break;
@@ -241,13 +240,13 @@ public class UserMenu {
                     break;
                 case 18:
                 //18. Print all Questions
-                    //List<Question> getAllQuestions()
-                    //Question(Integer questionId, String questionText, Map<Integer, String> questions, Integer correctAnswer)
+                    //List<QuestionResponse> getAllQuestions()
+                    //QuestionResponse(Integer questionId, String questionText, Map<Integer, String> answers, Integer correctAnswer)
                     System.out.println("====== Print all Questions ======");
 
-                    List<Question> allQuestions = questionService.getAllQuestions();
+                    List<QuestionResponse> allQuestions = questionService.getAllQuestions();
 
-                    for (Question question : allQuestions){
+                    for (QuestionResponse question : allQuestions){
                         System.out.println(question.getQuestionId() + " " + question.getQuestionText());
                     }
 

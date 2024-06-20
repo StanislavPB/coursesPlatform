@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 public class QuestionService implements InQuestionService{
     private InQuestionRepository questionRepository;
@@ -28,7 +27,7 @@ public class QuestionService implements InQuestionService{
         if (!QuestionValidation.validateCreateQuestionRequest(request)) {
             return null;
         }
-        Question question = questionRepository.create(request);
+        QuestionResponse question = questionRepository.create(request);
         return toQuestionResponse(question);
     }
 
@@ -48,8 +47,7 @@ public class QuestionService implements InQuestionService{
 
     @Override
     public Optional<QuestionResponse> getQuestionById(int id) {
-        Optional<QuestionResponse> question = questionRepository.findById(id);
-        return question.map((Function<? super QuestionResponse, ? extends QuestionResponse>) this::toQuestionResponse);
+        return Optional.empty();
     }
 
 
@@ -76,11 +74,11 @@ public class QuestionService implements InQuestionService{
         }
         return null;
     }
-/////
+
     @Override
     public QuestionResponse updateCorrectAnswer(CorrectAnswerRequestUpdate request) {
         Optional<QuestionResponse> existingQuestion = questionRepository.findById(request.getId());
-        if (existingQuestion.isEmpty() || !QuestionValidation.validateUpdateCorrectAnswerRequest(request, existingQuestion.get().getAnswers())) {
+        if (existingQuestion.isEmpty()) {
             return null;
         }
         QuestionResponse question = questionRepository.updateCorrectAnswer(request);
@@ -95,24 +93,25 @@ public class QuestionService implements InQuestionService{
         return questionRepository.deleteQuestion(id);
     }
 
-//    @Override
-//    public List<QuestionResponse> searchByKeyword(String keyword) {
-//        return null;
-//    }
-
     @Override
     public List<QuestionResponse> searchByKeyword(String keyword) {
-        List<Question> allQuestions = questionRepository.findAll();
-        List<QuestionResponse> result = new ArrayList<>();
-
-        for (Question question : allQuestions) {
-            if (question.getQuestionText().toLowerCase().contains(keyword.toLowerCase())) {
-                result.add(toQuestionResponse(question));
-            }
-        }
-        return result;
+        return null;
     }
 
+//    @Override
+//    public List<QuestionResponse> searchByKeyword(String keyword) {
+//        List<Question> allQuestions = questionRepository.findAll();
+//        List<QuestionResponse> result = new ArrayList<>();
+//
+//        for (Question question : allQuestions) {
+//            if (question.getQuestionText().toLowerCase().contains(keyword.toLowerCase())) {
+//                result.add(toQuestionResponse(question));
+//            }
+//        }
+//        return result;
+//    }
+            //Question(Integer questionId, String questionText, Map<Integer, String> questions, Integer correctAnswer)
+    //QuestionResponse(Integer questionId, String questionText, Map<Integer, String> answers, Integer correctAnswer)
     public QuestionResponse toQuestionResponse(Question question) {
         return new QuestionResponse(
                 question.getQuestionId(),
