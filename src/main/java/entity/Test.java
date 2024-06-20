@@ -5,6 +5,7 @@ import java.util.List;
 public class Test {
     private int testId;
     private String testTitle;
+    private int courseId;
     private Course course;
     private List<Question> questions;
 
@@ -17,6 +18,13 @@ public class Test {
         this.testId = testId;
         this.testTitle = testTitle;
         this.course = course;
+        this.questions = questions;
+    }
+
+    public Test(int testId, String testTitle, int courseId, List<Question> questions) {
+        this.testId = testId;
+        this.testTitle = testTitle;
+        this.courseId = courseId;
         this.questions = questions;
     }
 
@@ -45,6 +53,14 @@ public class Test {
         this.course = course;
     }
 
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
+    }
+
     public List<Question> getQuestions() {
         return questions;
     }
@@ -52,12 +68,13 @@ public class Test {
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
+
     @Override
     public String toString() {
-        return "entity.Test{" +
+        return "Test{" +
                 "testId=" + testId +
                 ", testTitle='" + testTitle + '\'' +
-                ", course=" + course +
+                ", courseId=" + courseId +
                 ", questions=" + questions +
                 '}';
     }
