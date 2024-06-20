@@ -16,7 +16,11 @@ public class Question {
         this.answers = answers;
         this.correctAnswer = correctAnswer;
     }
-//
+
+    public Question() {
+    }
+
+    ////
     public Integer getQuestionId() {
         return questionId;
     }

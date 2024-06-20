@@ -1,20 +1,23 @@
 package dto.question;
 
+import entity.Question;
+
 import java.util.Map;
 
-public class QuestionResponse {
+public class QuestionResponse extends Question {
     private Integer questionId;
     private String questionText;
     private Map<Integer, String> answers;
     private Integer correctAnswer;
 
     public QuestionResponse(Integer questionId, String questionText, Map<Integer, String> answers, Integer correctAnswer) {
+
         this.questionId = questionId;
         this.questionText = questionText;
         this.answers = answers;
         this.correctAnswer = correctAnswer;
     }
-
+////
     public Integer getQuestionId() {
         return questionId;
     }

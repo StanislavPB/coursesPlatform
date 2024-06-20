@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class QuestionService implements InQuestionService{
     private InQuestionRepository questionRepository;
@@ -27,27 +28,28 @@ public class QuestionService implements InQuestionService{
         if (!QuestionValidation.validateCreateQuestionRequest(request)) {
             return null;
         }
-        QuestionResponse question = questionRepository.create(request);
+        Question question = questionRepository.create(request);
         return toQuestionResponse(question);
-    }
-
-    @Override
-    public List<QuestionResponse> getAllQuestions() {
-        return null;
     }
 
 //    @Override
 //    public List<QuestionResponse> getAllQuestions() {
-//        List<QuestionResponse> responses = new ArrayList<>();
-//        for (Question question : questionRepository.findAll()) {
-//            responses.add(toQuestionResponse(question));
-//        }
-//        return responses;
+//        return null;
 //    }
 
     @Override
+    public List<QuestionResponse> getAllQuestions() {
+        List<QuestionResponse> responses = new ArrayList<>();
+        for (Question question : questionRepository.findAll()) {
+            responses.add(toQuestionResponse(question));
+        }
+        return responses;
+    }
+
+    @Override
     public Optional<QuestionResponse> getQuestionById(int id) {
-        return Optional.empty();
+        Optional<QuestionResponse> question = questionRepository.findById(id);
+        return question.map((Function<? super QuestionResponse, ? extends QuestionResponse>) this::toQuestionResponse);
     }
 
 
@@ -74,7 +76,7 @@ public class QuestionService implements InQuestionService{
         }
         return null;
     }
-
+/////
     @Override
     public QuestionResponse updateCorrectAnswer(CorrectAnswerRequestUpdate request) {
         Optional<QuestionResponse> existingQuestion = questionRepository.findById(request.getId());
@@ -93,25 +95,25 @@ public class QuestionService implements InQuestionService{
         return questionRepository.deleteQuestion(id);
     }
 
-    @Override
-    public List<QuestionResponse> searchByKeyword(String keyword) {
-        return null;
-    }
-
 //    @Override
 //    public List<QuestionResponse> searchByKeyword(String keyword) {
-//        List<Question> allQuestions = questionRepository.findAll();
-//        List<QuestionResponse> result = new ArrayList<>();
-//
-//        for (Question question : allQuestions) {
-//            if (question.getQuestionText().toLowerCase().contains(keyword.toLowerCase())) {
-//                result.add(toQuestionResponse(question));
-//            }
-//        }
-//        return result;
+//        return null;
 //    }
 
-    public QuestionResponse toQuestionResponse(QuestionResponse question) {
+    @Override
+    public List<QuestionResponse> searchByKeyword(String keyword) {
+        List<Question> allQuestions = questionRepository.findAll();
+        List<QuestionResponse> result = new ArrayList<>();
+
+        for (Question question : allQuestions) {
+            if (question.getQuestionText().toLowerCase().contains(keyword.toLowerCase())) {
+                result.add(toQuestionResponse(question));
+            }
+        }
+        return result;
+    }
+
+    public QuestionResponse toQuestionResponse(Question question) {
         return new QuestionResponse(
                 question.getQuestionId(),
                 question.getQuestionText(),
