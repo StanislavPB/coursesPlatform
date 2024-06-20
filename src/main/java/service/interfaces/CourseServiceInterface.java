@@ -9,17 +9,17 @@ import exception.CourseNotFoundException;
 import java.util.List;
 
 public interface CourseServiceInterface {
-    CourseResponse createCourse (CourseRequest courseRequest) throws CourseCreationException;
+    CourseResponse createCourse(CourseRequest courseRequest) throws CourseCreationException;
 
-    void addContentToCourse (Integer courseId, String content) throws CourseNotFoundException;
+    void addContentToCourse(Integer courseId, String content) throws CourseNotFoundException;
 
-    void addStudentToCourse (Integer courseId, Student student) throws CourseNotFoundException;
+    String addStudentToCourse(Integer courseId, Student student) throws CourseNotFoundException;
 
     List<CourseResponse> getAllCourses();
 
-    void updateCourseContent (Integer courseId, CourseRequest updatedCourse) throws CourseNotFoundException;
+    void updateCourseContent(Integer courseId, CourseRequest updatedCourse) throws CourseNotFoundException;
 
-    void printCourseContent (Integer courseId) throws CourseNotFoundException;
+    void printCourseContent(Integer courseId) throws CourseNotFoundException;
 
     void printCourseStudents(Integer courseId) throws CourseNotFoundException;
 
@@ -29,9 +29,5 @@ public interface CourseServiceInterface {
 
     void removeStudentFromCourse(Integer courseId, Student student) throws CourseNotFoundException;
 
-
-
-
-
+    CourseResponse getCourseById(Integer courseId) throws CourseNotFoundException;
 }
-

@@ -14,20 +14,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/*
-##Курс
-Создать новый курс ~~~~~~ +++ ~~~~~~
-Вывести на экран контент курса (строки из коллекции)
-Вывести на экран список студентов курса
-Вывод на экран списка всех курсов (В читабельном виде) ~~~~~~ +++ ~~~~~~
-
-Изменить контент курса ~~~~~~ +++ ~~~~~~
-Редактировать экземпляр коллекции контент курса(Строку)
-Удалить экземпляр коллекции контент курса (Строку)
-Добавить Студента на курс (в коллекцию) ~~~~~~ +++ ~~~~~~
-Удалить студента из коллекции курса
- */
-
 public class CourseService implements CourseServiceInterface {
     private final InterfaceCourseRepository courseRepository;
 
@@ -44,14 +30,14 @@ public class CourseService implements CourseServiceInterface {
     }
 
     @Override
-    public CourseResponse createCourse(CourseRequest courseRequest) throws CourseCreationException {  //Создать новый курс
+    public CourseResponse createCourse(CourseRequest courseRequest) throws CourseCreationException {
         try {
             int courseId = courseRepository.findAll().stream()
                     .mapToInt(Course::getCourseId)
                     .max()
                     .orElse(0) + 1;
 
-            Course course = new Course(
+            Course newCourse = new Course(
                     courseId,
                     courseRequest.getCourseTitle(),
                     courseRequest.getCourseDescription(),
@@ -59,59 +45,53 @@ public class CourseService implements CourseServiceInterface {
                     new ArrayList<>()
             );
 
-            courseRepository.addCourse(course.getCourseTitle(), course.getCourseDescription());
+            courseRepository.addCourse(newCourse.getCourseTitle(), newCourse.getCourseDescription());
 
-            Course createdCourse = courseRepository.findByCourseTitle(course.getCourseTitle())
+            Course createdCourse = courseRepository.findByCourseTitle(newCourse.getCourseTitle())
                     .orElseThrow(() -> new CourseCreationException("Failed to create course"));
 
             return convertToResponse(createdCourse);
         } catch (Exception e) {
-            throw new CourseCreationException("An error occurred while creating the course: " + e.getMessage());
+            throw new CourseCreationException("Ошибка при создании курса: " + e.getMessage());
         }
     }
 
     @Override
     public void addContentToCourse(Integer courseId, String content) throws CourseNotFoundException {
         try {
-            Optional<Course> optionalCourse = courseRepository.findById(courseId);
+            Optional<Course> optionalCourse = courseRepository.findCourseById(courseId);
             if (optionalCourse.isPresent()) {
                 Course course = optionalCourse.get();
                 course.getCourseContent().add(content);
 
             } else {
-                throw new CourseNotFoundException("Course with ID " + courseId + " not found");
+                throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
             }
         } catch (Exception e) {
-            throw new CourseNotFoundException("An error occurred while adding content to the course: " + e.getMessage());
+            throw new CourseNotFoundException("Ошибка при добавлении контента к курсу: " + e.getMessage());
         }
     }
 
     @Override
-    public void addStudentToCourse(Integer courseId, Student student) throws CourseNotFoundException {
-        //Вернут в результате работы метода
-        try {
-            Optional<Course> optionalCourse = courseRepository.findById(courseId);
-            if (optionalCourse.isPresent()) {
-                Course course = optionalCourse.get();
-                course.getStudents().add(student);
+    public String addStudentToCourse(Integer courseId, Student student) throws CourseNotFoundException {
+        Optional<Course> optionalCourse = courseRepository.findCourseById(courseId);
+        if (optionalCourse.isPresent()) {
+            Course course = optionalCourse.get();
+            course.getStudents().add(student);
 
-            } else { //создать новый courseNotFoundException
-                throw new CourseNotFoundException("Course with ID " + courseId + " not found");
-            }
-        } catch (Exception e) {
-            //список ошибок, наполняется из exception.getMessage
-            throw new CourseNotFoundException("An error occurred while adding the student to the course: " + e.getMessage());
+            return "Student added to the course successfully";
+        } else {
+            throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
         }
     }
 
-
     @Override
-    public List<CourseResponse> getAllCourses() {                                                      // Вывод на экран списка всех курсов (В читабельном виде)
+    public List<CourseResponse> getAllCourses() {
         List<CourseResponse> courseResponses = courseRepository.findAll().stream()
                 .map(this::convertToResponse)
                 .collect(Collectors.toList());
-//Print это отдельный метод, лучше бы это вынести, но пока просто использую
-        System.out.println("All courses:");
+
+        System.out.println("Все курсы:");
         System.out.println();
         courseResponses.forEach(courseResponse -> {
             System.out.println(courseResponse);
@@ -122,83 +102,92 @@ public class CourseService implements CourseServiceInterface {
     }
 
     @Override
-    public void updateCourseContent(Integer courseId, CourseRequest updatedCourse) throws CourseNotFoundException { // Изменить контент курса
+    public void updateCourseContent(Integer courseId, CourseRequest updatedCourse) throws CourseNotFoundException {
         try {
-            Optional<Course> optionalCourse = courseRepository.findById(courseId);
+            Optional<Course> optionalCourse = courseRepository.findCourseById(courseId);
             if (optionalCourse.isPresent()) {
                 Course course = optionalCourse.get();
                 course.setCourseTitle(updatedCourse.getCourseTitle());
                 course.setCourseDescription(updatedCourse.getCourseDescription());
 
             } else {
-                throw new CourseNotFoundException("Course with ID " + courseId + " not found");
+                throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
             }
         } catch (Exception e) {
-            throw new CourseNotFoundException("An error occurred while adding the student to the course: " + e.getMessage());
+            throw new CourseNotFoundException("Ошибка при обновлении контента курса: " + e.getMessage());
         }
     }
 
     @Override
     public void printCourseContent(Integer courseId) throws CourseNotFoundException {
-        Optional<Course> optionalCourse = courseRepository.findById(courseId);
-        if (optionalCourse.isPresent()){
+        Optional<Course> optionalCourse = courseRepository.findCourseById(courseId);
+        if (optionalCourse.isPresent()) {
             Course course = optionalCourse.get();
-            System.out.println("Course content: ");
+            System.out.println("Контент курса:");
             System.out.println();
             course.getCourseContent().forEach(System.out::println);
         } else {
-            throw new CourseNotFoundException("Course with ID " + courseId + " not found");
+            throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
         }
     }
 
     @Override
     public void printCourseStudents(Integer courseId) throws CourseNotFoundException {
-        Optional<Course> optionalCourse = courseRepository.findById(courseId);
+        Optional<Course> optionalCourse = courseRepository.findCourseById(courseId);
         if (optionalCourse.isPresent()) {
             Course course = optionalCourse.get();
-            System.out.println("Course students:");
-            course.getStudents().forEach(student -> System.out.println(student.getName())); // Assuming Student has a getName method
+            System.out.println("Студенты курса:");
+            course.getStudents().forEach(student -> System.out.println(student.getName())); // Предполагается, что у студента есть метод getName()
         } else {
-            throw new CourseNotFoundException("Course with ID " + courseId + " not found");
+            throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
         }
     }
 
     @Override
     public void editCourseContent(Integer courseId, int contentIndex, String newContent) throws CourseNotFoundException {
-        Optional<Course> optionalCourse = courseRepository.findById(courseId);
+        Optional<Course> optionalCourse = courseRepository.findCourseById(courseId);
         if (optionalCourse.isPresent()) {
             Course course = optionalCourse.get();
             if (contentIndex >= 0 && contentIndex < course.getCourseContent().size()) {
                 course.getCourseContent().set(contentIndex, newContent);
             } else {
-                throw new CourseNotFoundException("Content index out of bounds");
+                throw new CourseNotFoundException("Индекс контента выходит за пределы");
             }
         } else {
-            throw new CourseNotFoundException("Course with ID " + courseId + " not found");
+            throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
         }
     }
 
     @Override
     public void removeCourseContent(Integer courseId, String content) throws CourseNotFoundException {
-        Optional<Course> optionalCourse = courseRepository.findById(courseId);
+        Optional<Course> optionalCourse = courseRepository.findCourseById(courseId);
         if (optionalCourse.isPresent()) {
             Course course = optionalCourse.get();
             course.getCourseContent().remove(content);
         } else {
-            throw new CourseNotFoundException("Course with ID " + courseId + " not found");
+            throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
         }
     }
 
     @Override
     public void removeStudentFromCourse(Integer courseId, Student student) throws CourseNotFoundException {
-        Optional<Course> optionalCourse = courseRepository.findById(courseId);
+        Optional<Course> optionalCourse = courseRepository.findCourseById(courseId);
         if (optionalCourse.isPresent()) {
             Course course = optionalCourse.get();
             course.getStudents().remove(student);
         } else {
-            throw new CourseNotFoundException("Course with ID " + courseId + " not found");
+            throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
         }
     }
 
+    @Override
+    public CourseResponse getCourseById(Integer courseId) throws CourseNotFoundException {
+        Optional<Course> optionalCourse = courseRepository.findCourseById(courseId);
+        if (optionalCourse.isPresent()) {
+            Course course = optionalCourse.get();
+            return convertToResponse(course);
+        } else {
+            throw new CourseNotFoundException("Курс с ID " + courseId + " не найден");
+        }
+    }
 }
-
