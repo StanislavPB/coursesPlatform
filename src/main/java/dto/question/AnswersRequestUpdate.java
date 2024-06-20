@@ -5,7 +5,7 @@ import java.util.Map;
 public class AnswersRequestUpdate {
     private Integer questionId;
     private Map<Integer, String> newAnswers;
-//
+
     public AnswersRequestUpdate(Integer questionId, Map<Integer, String> newAnswers) {
         this.questionId = questionId;
         this.newAnswers = newAnswers;
@@ -27,5 +27,6 @@ public class AnswersRequestUpdate {
         this.newAnswers = newAnswers;
     }
 
-
+    public Map<Integer, String> getAnswers() {return newAnswers;
+    }
 }

@@ -37,7 +37,6 @@ public interface InQuestionRepository {
     Question updateCorrectAnswer(Integer questionId, Integer newCorrectAnswer);
 
     public boolean deleteQuestion(Integer questionId);
-//
 
-
+    Optional<QuestionResponse> findById(Integer id);
 }

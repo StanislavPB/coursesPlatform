@@ -24,4 +24,8 @@ public class QuestionTextRequestUpdate {
     public void setNewQuestionText(String newQuestionText) {
         this.newQuestionText = newQuestionText;
     }
+
+    public String getQuestionText() {
+        return null;
+    }
 }

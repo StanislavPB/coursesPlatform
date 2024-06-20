@@ -24,4 +24,7 @@ public class CorrectAnswerRequestUpdate {
     public void setNewCorrectAnswer(Integer newCorrectAnswer) {
         this.newCorrectAnswer = newCorrectAnswer;
     }
+
+    public Integer getCorrectAnswer() {return newCorrectAnswer;
+    }
 }

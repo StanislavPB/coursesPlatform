@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class QuestionRepository implements InQuestionRepository {
     private Map<Integer, Question> questions = new HashMap<>();
@@ -112,6 +113,11 @@ public class QuestionRepository implements InQuestionRepository {
     @Override
     public boolean deleteQuestion(Integer questionId) {
         return questions.remove(questionId) != null;
+    }
+
+    @Override
+    public Optional<QuestionResponse> findById(Integer id) {
+        return Optional.ofNullable(questions.get(id)).map(this::toQuestionResponse);
     }
 
 
