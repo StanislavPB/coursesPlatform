@@ -22,7 +22,7 @@ public class QuestionRepository implements InQuestionRepository {
     @Override
     public Question create(String questionText, Map<Integer, String> answers, Integer correctAnswer){
         int id = currentId++;
-        Question question = new Question(id, questionText, answers, correctAnswer);
+        Question question = new Question(id, questionText, answers, answers, correctAnswer);
         questions.put(id, question);
         return question;
     }

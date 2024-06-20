@@ -1,5 +1,12 @@
 package service;
 
+import dto.test.TestDTO;
+import entity.Course;
+import entity.Question;
+import entity.Test;
+import entity.TestResult;
+import repository.TestRepository;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -130,7 +137,7 @@ public class TestService {
                 questionDTO.getQuestionId(),
                 questionDTO.getQuestionText(),
                 questionDTO.getAnswers().stream().map(this::fromDTO).collect(Collectors.toList()),
-                questionDTO.getCorrectAnswerId()
+                answers, questionDTO.getCorrectAnswerId()
         );
     }
 

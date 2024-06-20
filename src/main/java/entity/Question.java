@@ -9,11 +9,11 @@ public class Question {
     private Map<Integer, String> answers;
     private Integer correctAnswer; //1
 
-    public Question(Integer questionId, String questionText, Map<Integer, String> questions, Integer correctAnswer) {
+    public Question(Integer questionId, String questionText, Map<Integer, String> questions, Map<Integer, String> answers, Integer correctAnswer) {
         this.questionId = questionId;
         this.questionText = questionText;
         this.questions = questions;
-        this.answers = answers;
+        this.answers = this.answers;
         this.correctAnswer = correctAnswer;
     }
 
