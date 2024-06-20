@@ -121,7 +121,7 @@ public class TestResultService {
             List<TestResultClientResponse> responseList = searchResult.getTestResultClientListResponse();
 
             int attempts = responseList.size();
-            String testTitle = responseList.getFirst().getTestTitle();
+            String testTitle = responseList.get(0).getTestTitle();
 
             double averageResult;
 
@@ -152,7 +152,7 @@ public class TestResultService {
             List<TestResultClientResponse> responseList = searchResult.getTestResultClientListResponse();
 
             int attempts = responseList.size();
-            String studentName = responseList.getFirst().getStudentName();
+            String studentName = responseList.get(0).getStudentName();
 
             double averageResult;
 
