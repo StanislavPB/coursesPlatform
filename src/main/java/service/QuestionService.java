@@ -31,19 +31,19 @@ public class QuestionService implements InQuestionService{
         return toQuestionResponse(question);
     }
 
-    @Override
-    public List<QuestionResponse> getAllQuestions() {
-        return null;
-    }
-
 //    @Override
 //    public List<QuestionResponse> getAllQuestions() {
-//        List<QuestionResponse> responses = new ArrayList<>();
-//        for (Question question : questionRepository.findAll()) {
-//            responses.add(toQuestionResponse(question));
-//        }
-//        return responses;
+//        return null;
 //    }
+
+    @Override
+    public List<QuestionResponse> getAllQuestions() {
+        List<QuestionResponse> responses = new ArrayList<>();
+        for (Question question : questionRepository.findAll()) {
+            responses.add(toQuestionResponse(question));
+        }
+        return responses;
+    }
 
     @Override
     public Optional<QuestionResponse> getQuestionById(int id) {
@@ -78,7 +78,7 @@ public class QuestionService implements InQuestionService{
     @Override
     public QuestionResponse updateCorrectAnswer(CorrectAnswerRequestUpdate request) {
         Optional<QuestionResponse> existingQuestion = questionRepository.findById(request.getId());
-        if (existingQuestion.isEmpty() || !QuestionValidation.validateUpdateCorrectAnswerRequest(request, existingQuestion.get().getAnswers())) {
+        if (existingQuestion.isEmpty()) {
             return null;
         }
         QuestionResponse question = questionRepository.updateCorrectAnswer(request);
@@ -110,8 +110,9 @@ public class QuestionService implements InQuestionService{
 //        }
 //        return result;
 //    }
-
-    public QuestionResponse toQuestionResponse(QuestionResponse question) {
+            //Question(Integer questionId, String questionText, Map<Integer, String> questions, Integer correctAnswer)
+    //QuestionResponse(Integer questionId, String questionText, Map<Integer, String> answers, Integer correctAnswer)
+    public QuestionResponse toQuestionResponse(Question question) {
         return new QuestionResponse(
                 question.getQuestionId(),
                 question.getQuestionText(),

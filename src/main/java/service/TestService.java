@@ -1,16 +1,28 @@
 package service;
 
+import dto.test.TestDTO;
+import dto.testResult.TestResultRequest;
+import dto.testResult.TestResultResponce;
+import entity.Course;
+import entity.Question;
+import entity.Test;
+import entity.TestResult;
+import repository.TestRepository;
+
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class TestService {
     private final TestRepository testRepository;
     private final CourseService courseService;
+    private final TestResultService testResultService;
 
-    public TestService(TestRepository testRepository, CourseService courseService) {
+    public TestService(TestRepository testRepository, CourseService courseService, TestResultService testResultService) {
         this.testRepository = testRepository;
         this.courseService = courseService;
+        this.testResultService = testResultService;
     }
 
     public TestDTO createTest(String testTitle, int courseId) {
@@ -87,25 +99,29 @@ public class TestService {
     }
 
     // Метод для прохождения теста студентом
-    public TestResult startTest(int testId, int studentId, List<Integer> answers) {
+    public TestResultResponce startTest(int testId, int studentId, List<Integer> answers) {
         Optional<Test> testOptional = testRepository.findById(testId);
+        //Нужна еще проверка на наличие такого студента (может быть не тут, а при вызове)
         if (testOptional.isPresent()) {
             Test test = testOptional.get();
             int correctAnswers = 0;
             List<Question> questions = test.getQuestions();
             for (int i = 0; i < questions.size(); i++) {
-                if (questions.get(i).getCorrectAnswerId() == answers.get(i)) {
+                if (Objects.equals(questions.get(i).getCorrectAnswer(), answers.get(i))) {
                     correctAnswers++;
                 }
             }
             double result = (double) correctAnswers / questions.size() * 100;
-            return new TestResult(testId, studentId, result);
+            TestResultRequest testResultRequest = new TestResultRequest(testId, studentId, result);
+            return testResultService.addNewTestResult(testResultRequest);
         }
         return null; // или выбросить исключение
     }
 
 
     // Преобразование из сущности в DTO
+    //TestDTO(int testId, String testTitle, int courseId, List<QuestionDTO> questions)
+    //   Test(int testId, String testTitle, Course course, List<Question> questions)
     private TestDTO toDTO(Test test) {
         return new TestDTO(
                 test.getTestId(),
