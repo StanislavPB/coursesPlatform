@@ -10,7 +10,7 @@ import java.util.Optional;
 public class StudentRepository implements InStudentRepository {
     private int id = 0;
 
-    private List<Student> students;
+    private final List<Student> students = new ArrayList<>();
 
     @Override
     public Student add(Student student) {
